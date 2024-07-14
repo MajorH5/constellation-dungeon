@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://dq2uhl6qgmqy5"]
+[gd_scene format=3 uid="uid://du2cv8qlhusqi"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -10,6 +10,8 @@ offset_bottom = 40.0
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Control"]
 layout_mode = 0
-offset_right = 172.0
-offset_bottom = 46.0
-text = "Hello wrold"
+offset_left = 466.0
+offset_top = 267.0
+offset_right = 863.0
+offset_bottom = 409.0
+text = "Hello world"
