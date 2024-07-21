@@ -1,6 +1,10 @@
-[gd_scene format=3 uid="uid://du2cv8qlhusqi"]
+[gd_scene load_steps=3 format=3 uid="uid://du2cv8qlhusqi"]
+
+[ext_resource type="Script" path="res://testAI.gd" id="1_vpf7h"]
+[ext_resource type="Script" path="res://assets/jam_launch/core/JamConnect.gd" id="2_gspw2"]
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource("1_vpf7h")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -15,3 +19,6 @@ offset_top = 267.0
 offset_right = 863.0
 offset_bottom = 409.0
 text = "Hello world"
+
+[node name="JamConnect" type="Node" parent="."]
+script = ExtResource("2_gspw2")
