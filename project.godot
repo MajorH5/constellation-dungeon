@@ -10,7 +10,9 @@ config_version=5
 
 [application]
 
-config/name="jam-launch-project"
+config/name="Project Constellation Dungeon"
+config/description="July 2024 Jam Launch Game Jam"
+config/version="v.0.0.0"
 run/main_scene="res://Game.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 run/flush_stdout_on_print=true
