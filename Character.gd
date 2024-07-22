@@ -5,6 +5,9 @@ const JUMP_VELOCITY = -600.0
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+var old_position = Vector2()
+
+
 var pid: int
 var nametag: String:
 	get:
@@ -63,7 +66,10 @@ func _process(delta):
 		if playtime_counter >= playtime_interval:
 			playtime += playtime_counter
 			playtime_counter = 0.0
-	
+	else:
+		var t = Engine.get_physics_interpolation_fraction()
+		$Sprite2D.position = old_position.lerp(position, t) - old_position
+		
 	if multiplayer.get_unique_id() != pid:
 		return
 	
@@ -78,6 +84,7 @@ func _process(delta):
 
 func _physics_process(delta):
 	if not multiplayer.is_server():
+		old_position = position
 		return
 		
 	# Add the gravity.
