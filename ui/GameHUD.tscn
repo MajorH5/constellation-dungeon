@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://b1xityx8ekvxp"]
+
+[ext_resource type="Texture2D" uid="uid://b286g0wqr5i4q" path="res://assets/images/icons/icon_satchel_16x16_rendered.png" id="1_naos6"]
+[ext_resource type="Texture2D" uid="uid://cndwc6ortvvmo" path="res://assets/images/icons/icon_skilltree_16x16_rendered.png" id="2_n3gq2"]
+
+[node name="GameHud" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="IGNORE THIS ITS TO FIX ISSUE #58314" type="Label" parent="."]
+layout_mode = 0
+offset_left = 168.0
+offset_top = 189.0
+offset_right = 305.0
+offset_bottom = 212.0
+text = " "
+
+[node name="TextureButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -45.0
+offset_top = -90.0
+offset_right = 45.0
+grow_horizontal = 2
+grow_vertical = 0
+texture_normal = ExtResource("1_naos6")
+
+[node name="TextureButton2" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.57
+anchor_top = 1.03
+anchor_right = 0.57
+anchor_bottom = 1.03
+offset_left = -45.0
+offset_top = -90.0
+offset_right = 45.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.6, 0.6)
+texture_normal = ExtResource("2_n3gq2")

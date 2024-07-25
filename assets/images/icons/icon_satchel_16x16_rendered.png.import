@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1fxv2exiktm8"
-path="res://.godot/imported/chars.png-0eca987de0427ea02ef90bf79db94912.ctex"
+uid="uid://b286g0wqr5i4q"
+path="res://.godot/imported/icon_satchel_16x16_rendered.png-8b21db14c4336309a5430dce28063169.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/chars.png"
-dest_files=["res://.godot/imported/chars.png-0eca987de0427ea02ef90bf79db94912.ctex"]
+source_file="res://assets/images/icons/icon_satchel_16x16_rendered.png"
+dest_files=["res://.godot/imported/icon_satchel_16x16_rendered.png-8b21db14c4336309a5430dce28063169.ctex"]
 
 [params]
 
