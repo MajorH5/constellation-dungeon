@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://b1xityx8ekvxp"]
+[gd_scene load_steps=5 format=3 uid="uid://b1xityx8ekvxp"]
 
 [ext_resource type="Texture2D" uid="uid://b286g0wqr5i4q" path="res://assets/images/icons/icon_satchel_16x16_rendered.png" id="1_naos6"]
 [ext_resource type="Texture2D" uid="uid://cndwc6ortvvmo" path="res://assets/images/icons/icon_skilltree_16x16_rendered.png" id="2_n3gq2"]
+[ext_resource type="Script" path="res://ui/TextureButton.gd" id="2_qb2py"]
+[ext_resource type="Texture2D" uid="uid://bjgl5qnafojwh" path="res://assets/images/icons/icon_crafting_16x16_rendered.png" id="4_doweq"]
 
 [node name="GameHud" type="Control"]
 layout_mode = 3
@@ -19,7 +21,7 @@ offset_right = 305.0
 offset_bottom = 212.0
 text = " "
 
-[node name="TextureButton" type="TextureButton" parent="."]
+[node name="Satchel" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -31,19 +33,99 @@ offset_top = -90.0
 offset_right = 45.0
 grow_horizontal = 2
 grow_vertical = 0
-texture_normal = ExtResource("1_naos6")
+script = ExtResource("2_qb2py")
 
-[node name="TextureButton2" type="TextureButton" parent="."]
+[node name="TextureRect" type="TextureRect" parent="Satchel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -45.0
+offset_top = -45.0
+offset_right = 45.0
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_naos6")
+
+[node name="Skill Tree" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.57
-anchor_top = 1.03
+anchor_top = 1.0
 anchor_right = 0.57
-anchor_bottom = 1.03
+anchor_bottom = 1.0
 offset_left = -45.0
 offset_top = -90.0
 offset_right = 45.0
 grow_horizontal = 2
 grow_vertical = 0
-scale = Vector2(0.6, 0.6)
-texture_normal = ExtResource("2_n3gq2")
+action_mode = 0
+script = ExtResource("2_qb2py")
+
+[node name="TextureRect" type="TextureRect" parent="Skill Tree"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -45.0
+offset_top = -45.0
+offset_right = 45.0
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_n3gq2")
+
+[node name="Crafting" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.43
+anchor_top = 1.0
+anchor_right = 0.43
+anchor_bottom = 1.0
+offset_left = -45.0
+offset_top = -90.0
+offset_right = 45.0
+grow_horizontal = 2
+grow_vertical = 0
+action_mode = 0
+script = ExtResource("2_qb2py")
+
+[node name="TextureRect" type="TextureRect" parent="Crafting"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -45.0
+offset_top = -45.0
+offset_right = 45.0
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_doweq")
+
+[node name="HotbarAction" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.841
+anchor_right = 0.5
+anchor_bottom = 0.841
+offset_left = -20.0
+offset_top = -23.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[connection signal="mouse_entered" from="Satchel" to="Satchel" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Satchel" to="Satchel" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Skill Tree" to="Skill Tree" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Skill Tree" to="Skill Tree" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Crafting" to="Crafting" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Crafting" to="Crafting" method="_on_mouse_exited"]
