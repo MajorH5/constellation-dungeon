@@ -854,7 +854,7 @@ scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_r3bid")
 animation = &"death"
 autoplay = "idle_south"
-frame_progress = 0.461288
+frame_progress = 0.242344
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 y_sort_enabled = true

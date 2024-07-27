@@ -26,7 +26,6 @@ func _on_mouse_entered():
 	hotbar_action.text = name
 	tween.play()
 
-
 func _on_mouse_exited():
 	if tween != null:
 		tween.stop()
