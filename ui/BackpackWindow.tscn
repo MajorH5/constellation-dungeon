@@ -1,0 +1,287 @@
+[gd_scene load_steps=3 format=3 uid="uid://bl31bdg224lpp"]
+
+[ext_resource type="Texture2D" uid="uid://bwn0b3a5h5s80" path="res://assets/images/ui/ui_backpack.png" id="1_rluui"]
+[ext_resource type="Texture2D" uid="uid://lmt8kvn4m6to" path="res://assets/images/ui/icons/ui_icons_16x16_rendered.png" id="2_trp5h"]
+
+[node name="BackpackWindow" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -379.5
+offset_top = -325.5
+offset_right = 379.5
+offset_bottom = 325.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_rluui")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.00392157, 0.00392157, 0.00392157, 0.513726)
+
+[node name="GridContainer" type="GridContainer" parent="."]
+z_index = 1
+layout_mode = 0
+offset_left = 366.0
+offset_top = 192.0
+offset_right = 882.0
+offset_bottom = 560.0
+columns = 6
+
+[node name="Control" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="GridContainer/Control"]
+texture = ExtResource("2_trp5h")
+centered = false
+region_enabled = true
+region_rect = Rect2(540, 180, 90, 90)
+
+[node name="Control2" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="GridContainer/Control2"]
+texture = ExtResource("2_trp5h")
+centered = false
+region_enabled = true
+region_rect = Rect2(540, 180, 90, 90)
+
+[node name="Control3" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="GridContainer/Control3"]
+texture = ExtResource("2_trp5h")
+centered = false
+region_enabled = true
+region_rect = Rect2(540, 180, 90, 90)
+
+[node name="Control4" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="GridContainer/Control4"]
+texture = ExtResource("2_trp5h")
+centered = false
+region_enabled = true
+region_rect = Rect2(540, 180, 90, 90)
+
+[node name="Control5" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="GridContainer/Control5"]
+texture = ExtResource("2_trp5h")
+centered = false
+region_enabled = true
+region_rect = Rect2(540, 180, 90, 90)
+
+[node name="Control6" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="GridContainer/Control6"]
+texture = ExtResource("2_trp5h")
+centered = false
+region_enabled = true
+region_rect = Rect2(540, 180, 90, 90)
+
+[node name="Control7" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="GridContainer/Control7"]
+texture = ExtResource("2_trp5h")
+centered = false
+region_enabled = true
+region_rect = Rect2(540, 180, 90, 90)
+
+[node name="Control8" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="GridContainer/Control8"]
+texture = ExtResource("2_trp5h")
+centered = false
+region_enabled = true
+region_rect = Rect2(540, 180, 90, 90)
+
+[node name="Control9" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="GridContainer/Control9"]
+texture = ExtResource("2_trp5h")
+centered = false
+region_enabled = true
+region_rect = Rect2(540, 180, 90, 90)
+
+[node name="Control10" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="GridContainer/Control10"]
+texture = ExtResource("2_trp5h")
+centered = false
+region_enabled = true
+region_rect = Rect2(540, 180, 90, 90)
+
+[node name="Control11" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="GridContainer/Control11"]
+texture = ExtResource("2_trp5h")
+centered = false
+region_enabled = true
+region_rect = Rect2(540, 180, 90, 90)
+
+[node name="Control12" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="GridContainer/Control12"]
+texture = ExtResource("2_trp5h")
+centered = false
+region_enabled = true
+region_rect = Rect2(540, 180, 90, 90)
+
+[node name="Control13" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="GridContainer/Control13"]
+texture = ExtResource("2_trp5h")
+centered = false
+region_enabled = true
+region_rect = Rect2(540, 180, 90, 90)
+
+[node name="Control14" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="GridContainer/Control14"]
+texture = ExtResource("2_trp5h")
+centered = false
+region_enabled = true
+region_rect = Rect2(540, 180, 90, 90)
+
+[node name="Control17" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="GridContainer/Control17"]
+texture = ExtResource("2_trp5h")
+centered = false
+region_enabled = true
+region_rect = Rect2(540, 180, 90, 90)
+
+[node name="Control18" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="GridContainer/Control18"]
+texture = ExtResource("2_trp5h")
+centered = false
+region_enabled = true
+region_rect = Rect2(540, 180, 90, 90)
+
+[node name="Control19" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="GridContainer/Control19"]
+texture = ExtResource("2_trp5h")
+centered = false
+region_enabled = true
+region_rect = Rect2(540, 180, 90, 90)
+
+[node name="Control20" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="GridContainer/Control20"]
+texture = ExtResource("2_trp5h")
+centered = false
+region_enabled = true
+region_rect = Rect2(540, 180, 90, 90)
+
+[node name="Control21" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="GridContainer/Control21"]
+texture = ExtResource("2_trp5h")
+centered = false
+region_enabled = true
+region_rect = Rect2(540, 180, 90, 90)
+
+[node name="Control22" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="GridContainer/Control22"]
+texture = ExtResource("2_trp5h")
+centered = false
+region_enabled = true
+region_rect = Rect2(540, 180, 90, 90)
+
+[node name="Control23" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="GridContainer/Control23"]
+texture = ExtResource("2_trp5h")
+centered = false
+region_enabled = true
+region_rect = Rect2(540, 180, 90, 90)
+
+[node name="Control24" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="GridContainer/Control24"]
+texture = ExtResource("2_trp5h")
+centered = false
+region_enabled = true
+region_rect = Rect2(540, 180, 90, 90)
+
+[node name="Control15" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="GridContainer/Control15"]
+texture = ExtResource("2_trp5h")
+centered = false
+region_enabled = true
+region_rect = Rect2(540, 180, 90, 90)
+
+[node name="Control16" type="Control" parent="GridContainer"]
+custom_minimum_size = Vector2(90, 90)
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="GridContainer/Control16"]
+texture = ExtResource("2_trp5h")
+centered = false
+region_enabled = true
+region_rect = Rect2(540, 180, 90, 90)

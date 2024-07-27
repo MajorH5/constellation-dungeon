@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cndwc6ortvvmo"
-path="res://.godot/imported/icon_skilltree_16x16_rendered.png-b0a78d1d8b0fc7aa7103f333202694a5.ctex"
+uid="uid://b286g0wqr5i4q"
+path="res://.godot/imported/icon_satchel_16x16_rendered.png-5096857a3063a00719366164433ae11c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/icons/icon_skilltree_16x16_rendered.png"
-dest_files=["res://.godot/imported/icon_skilltree_16x16_rendered.png-b0a78d1d8b0fc7aa7103f333202694a5.ctex"]
+source_file="res://assets/images/ui/icons/icon_satchel_16x16_rendered.png"
+dest_files=["res://.godot/imported/icon_satchel_16x16_rendered.png-5096857a3063a00719366164433ae11c.ctex"]
 
 [params]
 

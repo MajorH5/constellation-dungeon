@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bjgl5qnafojwh"
-path="res://.godot/imported/icon_crafting_16x16_rendered.png-608d3a1fcd6527ebf9b4eddd63916b0c.ctex"
+uid="uid://yn48swa551ny"
+path="res://.godot/imported/tileset_16x16_rendered.png-fc5fca2f2f030b209f13118c9a2597b2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/icons/icon_crafting_16x16_rendered.png"
-dest_files=["res://.godot/imported/icon_crafting_16x16_rendered.png-608d3a1fcd6527ebf9b4eddd63916b0c.ctex"]
+source_file="res://assets/images/tilesets/tileset_16x16_rendered.png"
+dest_files=["res://.godot/imported/tileset_16x16_rendered.png-fc5fca2f2f030b209f13118c9a2597b2.ctex"]
 
 [params]
 

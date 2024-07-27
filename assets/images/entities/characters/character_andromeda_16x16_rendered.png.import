@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://l01v76mub7fc"
-path="res://.godot/imported/objects_rendered.png-134fe2640848a7dc47e8f0754c602111.ctex"
+uid="uid://1ldu241nr0ii"
+path="res://.godot/imported/character_andromeda_16x16_rendered.png-b89abcca093ac9556662b563f287b05b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/images/objects_rendered.png"
-dest_files=["res://.godot/imported/objects_rendered.png-134fe2640848a7dc47e8f0754c602111.ctex"]
+source_file="res://assets/images/entities/characters/character_andromeda_16x16_rendered.png"
+dest_files=["res://.godot/imported/character_andromeda_16x16_rendered.png-b89abcca093ac9556662b563f287b05b.ctex"]
 
 [params]
 
