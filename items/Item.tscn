@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://4mwx00aah7s3"]
+
+[ext_resource type="Script" path="res://items/weapons/Weapon.gd" id="1_3vjh4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y2cdj"]
+
+[node name="Item" type="Node2D"]
+script = ExtResource("1_3vjh4")
+texture = SubResource("AtlasTexture_y2cdj")
