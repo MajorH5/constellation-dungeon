@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bcucash6fcx6h"]
+
+[ext_resource type="Script" path="res://entities/AutoAnimator.gd" id="1_ratp3"]
+
+[node name="AutoAnimator" type="Node2D"]
+script = ExtResource("1_ratp3")
