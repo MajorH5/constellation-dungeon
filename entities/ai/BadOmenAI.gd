@@ -25,7 +25,11 @@ func perform(delta: float):
 		)
 
 		agent.walk_to(walk_direction)
-		agent.attack_to(walk_direction)
+		
+		if randf() < 0.5:
+			agent.attack_to(walk_direction)
+		else:
+			agent.attack_to(Vector2.ZERO)
 		
 		time_walking_in_direction = 0
 		current_walk_time_limit = min_time + (max_time - min_time) * randf()
