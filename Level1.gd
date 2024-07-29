@@ -4,7 +4,8 @@ var dagger = preload("res://items/weapons/Dagger.tscn")
 var player_scn = preload("res://entities/friendlies/Player.tscn")
 
 var last_enemy_spawn = 3 # seconds
-var enemy_spawn_rate = 10 # seconds
+var enemy_spawn_rate = 2 # seconds
+var max_enemies = 10
 
 func spawn_player(pid: int, player_name: String):	
 	var player: Player = player_scn.instantiate()
@@ -18,7 +19,7 @@ func spawn_player(pid: int, player_name: String):
 	player.set_slot_item(
 		Item.SlotType.QUICK_SWAP,
 		Item.SLOT_WEAPON,
-		ItemLookup.get_item(ItemLookup.BOW),
+		ItemLookup.get_item(ItemLookup.GOD_SWORD),
 		1
 	)
 
@@ -39,8 +40,8 @@ func _process(delta):
 		return
 	last_enemy_spawn += delta
 	
-	if last_enemy_spawn >= enemy_spawn_rate:
+	if last_enemy_spawn >= enemy_spawn_rate and len($Enemies.get_children()) < max_enemies:
 		var enemy = load("res://entities/hostiles/BadOmen.tscn").instantiate()
 		enemy.position = $SpawnPoints.get_children().pick_random().position
-		$Players.add_child(enemy, true)
+		$Enemies.add_child(enemy, true)
 		last_enemy_spawn = 0
