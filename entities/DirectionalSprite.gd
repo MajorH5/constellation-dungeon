@@ -16,21 +16,6 @@ const ACTION_IDLE = "idle"
 
 var current_facing: String = SOUTH
 
-func facing_from_velocity(velocity: Vector2):
-	# given a vector in a relative velocity to move towards
-	# returns the corresponding direction of the vector
-	if velocity.y < 0:
-		return NORTH
-	elif velocity.y > 0:
-		return SOUTH
-	elif velocity.x < 0:
-		return WEST
-	elif velocity.x > 0:
-		return EAST
-	
-	# defaults to southern velocity for zero vectors
-	return SOUTH
-
 func facing_from_direction(direction: Vector2) -> String:
 	# given a direction relative to sprite returns
 	# the cardinal direction to face the proper angle
@@ -57,7 +42,7 @@ func facing_from_direction(direction: Vector2) -> String:
 	# trust my code
 	return SOUTH
 
-func determine_animation(velocity: Vector2, is_attacking: bool, attack_direction: Vector2):
+func determine_animation(velocity: Vector2, is_attacking: bool, attack_direction: Vector2, fire_rate: float):
 	# three possible main actions with priority: attacking > walking > idling
 	var current_action = ACTION_IDLE
 	
@@ -66,7 +51,7 @@ func determine_animation(velocity: Vector2, is_attacking: bool, attack_direction
 	elif velocity.length() > 0:
 		current_action = ACTION_WALK
 	
-	var current_direction = facing_from_velocity(velocity)
+	var current_direction = facing_from_direction(velocity)
 	
 	if is_attacking:
 		# facing where we are currently attacking
@@ -79,9 +64,25 @@ func determine_animation(velocity: Vector2, is_attacking: bool, attack_direction
 	var animation_name = "%s_%s" % [current_action, current_direction]
 	
 	current_facing = current_direction
+
+	if is_attacking:
+		# 2 becuz two attack frames by default
+		speed_scale = fire_rate * 2
+	else:
+		speed_scale = 1
+	
 	
 	if animation != animation_name:
+		var current_frame = get_frame()
+		var current_progress = get_frame_progress()
+		var is_same_action = animation.begins_with(current_action)
+		
 		play(animation_name)
+		
+		if is_same_action:
+			# must maintain frame progress between
+			# direction swaps to maintain visual consistency
+			set_frame_and_progress(current_frame, current_progress)
 
 func _physics_process(delta):
 	# this node expects to be a child of an entity
@@ -90,4 +91,10 @@ func _physics_process(delta):
 	if entity == null or not (entity is Entity):
 		return
 	
-	determine_animation(entity.get_velocity(), entity.is_attacking, entity.attack_direction)
+	if entity.is_dead():
+		if animation != "death":
+			speed_scale = 1
+			play("death")
+		return
+	
+	determine_animation(entity.get_velocity(), entity.is_attacking, entity.attack_direction, entity.fire_rate)

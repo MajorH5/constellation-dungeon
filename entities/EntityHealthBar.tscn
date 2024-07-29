@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://bf74ue7fcejd7"]
+
+[ext_resource type="Script" path="res://entities/EntityHealthBar.gd" id="1_vdfv7"]
+
+[node name="HealthBar" type="ColorRect"]
+z_index = 2
+offset_left = -4.0
+offset_top = -9.0
+offset_right = 96.0
+offset_bottom = 1.0
+scale = Vector2(0.1, 0.1)
+color = Color(0, 0, 0, 1)
+script = ExtResource("1_vdfv7")
+
+[node name="Progress" type="ColorRect" parent="."]
+z_index = 2
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 10.0
+color = Color(0.760784, 0, 0, 1)

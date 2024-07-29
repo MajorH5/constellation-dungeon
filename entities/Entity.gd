@@ -5,8 +5,19 @@ class_name Entity
 extends CharacterBody2D
 
 const BASE_SPEED_MULTIPLIER = 13
+const ENTITY_DESPAWN_DELAY = 3
+
+static var entity_registry: Dictionary = {}
+static var entity_id_track: int = 0
+
+const projectile_scn = preload("res://projectiles/Projectile.tscn")
+const damage_text_scn = preload("res://ui/DamageText.tscn")
+
+@onready var sprite = $AnimatedSprite2D
+@onready var health_bar = $HealthBar
 
 @export_group("Combat Stats")
+@export var max_health: int = 100
 @export var health: int = 100
 @export var attack: int = 1
 @export var speed: int = 5
@@ -14,16 +25,19 @@ const BASE_SPEED_MULTIPLIER = 13
 
 @export_group("Attributes")
 @export var hostile: bool = false
-@export var fire_rate: float = 1.0 / 3.0
-@export var base_projectile_damage: int = 0
+@export var fire_rate: float = 1
+@export var projectile_data: ProjectileData
+@export var base_damage: int = 1
+@export var despawn_on_death: bool = true
 
+var entity_id: int = -1
 var owner_id: int # unique multiplayer client id or blank if server owned
 
 var last_walking_direction: Vector2 = Vector2.ZERO
 var last_attacking_direction: Vector2 = Vector2.ZERO
 var last_fire_time = 0
 
-signal on_death(cause: Variant)
+signal death(cause: Variant)
 
 var is_attacking: bool = false
 var attack_direction: Vector2 = Vector2.ZERO
@@ -33,14 +47,33 @@ func is_dead() -> bool:
 	return health <= 0
 
 func spawn_projectile():
-	if not multiplayer.is_server():
-		var dagger = load("res://items/weapons/Dagger.tscn").instantiate()
-		var projectile: RigidBody2D = dagger.create_projectile(true, 1, attack_direction)
-		
-		projectile.position = position
-		projectile.linear_velocity = attack_direction * 65 * 2
-		
-		get_parent().get_parent().add_child(projectile)
+	# create the correspoding projectile which will
+	# move and do damage that is emitted from this entity
+	
+	if is_dead():
+		return
+	
+	var projectile = projectile_scn.instantiate()
+	
+	# dont need this in degrees but helps with visualization...
+	var radians = atan2(-attack_direction.y, attack_direction.x)
+	var degrees = floori(rad_to_deg(radians) + 360) % 360
+	
+	projectile.linear_velocity = attack_direction * projectile_data.speed * Projectile.BASE_PROJECTILE_SPEED
+	projectile.damage = get_projectile_damage()
+	projectile.rotation_degrees = 45 - degrees
+	projectile.from_player = not hostile
+	projectile.lifetime = projectile_data.lifetime
+	projectile.sender = entity_id
+	projectile.position = position + attack_direction * 5 # just to fix z-fighting
+	
+	#TODO: uhm how to do this bruh? jank boxes for now
+	#projectile.hitbox.shape = ????
+	
+	get_parent().get_parent().add_child(projectile)
+
+func get_projectile_damage() -> int:
+	return base_damage
 
 func damage(amount: int, source: Variant) -> bool:
 	# damages the entity by the given amount
@@ -49,9 +82,16 @@ func damage(amount: int, source: Variant) -> bool:
 		return false
 	
 	health = max(0, health - amount)
+	health_bar.set_health_percent(health * 1.0 / max_health)
+	
+	var damage_text = damage_text_scn.instantiate()
+	damage_text.position = Vector2(0, -20)
+	damage_text.text = "-%d" % amount
+	add_child(damage_text)
 	
 	if health == 0:
-		on_death.emit(source)
+		_on_death()
+		death.emit(source)
 	
 	return true
 
@@ -110,15 +150,40 @@ func walk_to(direction: Vector2):
 			rpc_walk.rpc_id(1, direction)
 			last_walking_direction = direction
 	else:
-		if direction.x != 0 or direction.y != 0:
-			velocity = (direction / direction.length()) * BASE_SPEED_MULTIPLIER * speed
-		else:
+		if direction == Vector2.ZERO:
 			velocity = Vector2.ZERO
+		else:
+			velocity = direction * BASE_SPEED_MULTIPLIER * speed
 
 func _process (delta):
-	if not multiplayer.is_server():
+	if multiplayer.is_server():
 		last_fire_time += delta
 		
-		if is_attacking and last_fire_time >= fire_rate:
+		if is_attacking and last_fire_time >= 1 / fire_rate:
 			spawn_projectile()
 			last_fire_time = 0
+	
+	health_bar.set_health_percent((health * 1.0) / max_health)
+	
+	move_and_slide()
+
+func _on_death():
+	if multiplayer.is_server():
+		attack_to(Vector2.ZERO)
+		walk_to(Vector2.ZERO)
+	
+	if despawn_on_death:
+		get_tree().create_timer(ENTITY_DESPAWN_DELAY).timeout.connect(queue_free)
+
+func _enter_tree():
+	if multiplayer.is_server():
+		entity_id = Entity.entity_id_track
+		Entity.entity_registry[entity_id] = self
+		Entity.entity_id_track += 1
+	else:
+		# id was already set by server, just store it
+		Entity.entity_registry[entity_id] = self
+
+func _exit_tree():
+	entity_id = -1
+	Entity.entity_registry.erase(entity_id)

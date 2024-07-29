@@ -4,37 +4,14 @@
 class_name Weapon
 extends Item
 
-const projectile_scn = preload("res://projectiles/Projectile.tscn")
-
-@export var damage: int = 1
+@export var min_damage: int = 1
+@export var max_damage: int = 1
 @export var rate_of_fire: float = 1
+@export var projectile_data: ProjectileData
 
-@export_group("Projectile Data")
-@export var projectile_speed: int = 1
-@export var projectile_texture: SpriteFrames
-@export var projectile_lifetime: float = 1.0
-@export var projectile_hitbox_size: Vector2 = Vector2(8, 8)
-@export var projectile_hitbox_offset: Vector2 = Vector2.ZERO
+func get_rand_damage() -> int:
+	return floori(min_damage + (max_damage - min_damage) * randf())
 
-func create_projectile(from_player: bool, projectile_damage: int, direction: Vector2) -> Projectile:
-	# create the correspoding projectile which will
-	# move and do damage that is emitted from this weapon
-	var projectile = projectile_scn.instantiate()
-	
-	var radians = atan2(-direction.y, direction.x)
-	var degrees = floori(rad_to_deg(radians) + 360) % 360
-	
-	projectile.ready.connect(func ():
-		projectile.sprite.sprite_frames = projectile_texture
-		projectile.sprite.play("default")
-		projectile.rotation = degrees - 45
-		projectile.damage = projectile_damage
-		projectile.from_player = from_player
-		projectile.lifetime = projectile_lifetime
-	)
-	
-	
-	#TODO: uhm how to do this bruh? jank boxes for now
-	#projectile.hitbox.shape = ????
-	
-	return projectile
+func get_descriptor() -> String:
+	var item_desc = super.get_descriptor()	
+	return "%s\n[color=red]Damage: %s-%s[/color]\n[color=yellow]Attack Speed: %.2f[/color]" % [item_desc, min_damage, max_damage, rate_of_fire]

@@ -4,8 +4,12 @@
 class_name Projectile
 extends RigidBody2D
 
+const ENEMY_COLLISION_LAYER = 4
+const PLAYER_COLLISION_LAYER = 2
+const BASE_PROJECTILE_SPEED = 13
+
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
-@onready var hitbox: CollisionShape2D = $CollisionShape2D
+@onready var hitbox: Area2D = $Area2D
 
 # these properties will be modified  by whatever
 # instantiates this scene
@@ -13,24 +17,48 @@ var from_player: bool = false
 @export var lifetime: float = 1.0
 var damage: int = 0
 
+var sender: int = -1
+
 func _on_body_entered(body):
 	# fires whenever the projectile has collided with
 	# some entity in the world
 	
-	queue_free()
+	if not multiplayer.is_server():
+		return
 	
-	if from_player and body.is_hostile:
-		pass
-	elif not from_player and not body.is_hostile:
-		pass
+	if not (body is Entity):
+		# hit a wall?
+		queue_free()
+		return
 	
+	var friendly_hitting_hostile = from_player and body.hostile
+	var hostile_hitting_friendly = not from_player and not body.hostile
+
+	if (friendly_hitting_hostile or hostile_hitting_friendly) and not body.is_dead():
+		body.damage(damage, self)
+		queue_free()
+
+func _ready ():
+	if not multiplayer.is_server():
+		var creator: Entity = Entity.entity_registry.get(sender)
+		
+		if creator != null:
+			var projectile_data = creator.projectile_data
+			
+			sprite.sprite_frames = projectile_data.texture
+			var total_frames = sprite.sprite_frames.get_frame_count("default")
+			sprite.sprite_frames.set_animation_speed("default", 1.0 / (lifetime / total_frames))
+			
+			sprite.play("default")
+		else:
+			print("[Projectile._ready]: Client failed to determine the creator for a projectile!")
+	
+	var layer: int = ENEMY_COLLISION_LAYER if from_player else PLAYER_COLLISION_LAYER
+	hitbox.set_collision_layer_value(layer, true)
 
 func _process (delta: float):
 	# updaes the projectile's lifetime
 	# counting down till when it despawns
-	if not multiplayer.is_server():
-		return
-	
 	lifetime -= delta
 	
 	if lifetime <= 0:

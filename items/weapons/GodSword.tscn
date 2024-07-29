@@ -1,24 +1,24 @@
-[gd_scene load_steps=12 format=3 uid="uid://d2i7y7bqlhe38"]
+[gd_scene load_steps=12 format=3 uid="uid://bda7i6q2bamuc"]
 
-[ext_resource type="Script" path="res://items/weapons/Weapon.gd" id="1_41iu4"]
-[ext_resource type="Texture2D" uid="uid://giaix5rphnij" path="res://assets/images/projectiles/projectiles_8x8_rendered.png" id="2_03aid"]
-[ext_resource type="Script" path="res://projectiles/ProjectileData.gd" id="2_nbjo4"]
-[ext_resource type="Texture2D" uid="uid://dy7mnk8q8m6ju" path="res://assets/images/items/items_melee_16x16_rendered.png" id="2_tej14"]
+[ext_resource type="Script" path="res://items/weapons/Weapon.gd" id="1_upn61"]
+[ext_resource type="Script" path="res://projectiles/ProjectileData.gd" id="2_fwlty"]
+[ext_resource type="Texture2D" uid="uid://giaix5rphnij" path="res://assets/images/projectiles/projectiles_8x8_rendered.png" id="3_xk3y1"]
+[ext_resource type="Texture2D" uid="uid://dy7mnk8q8m6ju" path="res://assets/images/items/items_melee_16x16_rendered.png" id="4_w74nu"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tgi2o"]
-atlas = ExtResource("2_03aid")
+atlas = ExtResource("3_xk3y1")
 region = Rect2(100, 0, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ghsyo"]
-atlas = ExtResource("2_03aid")
+atlas = ExtResource("3_xk3y1")
 region = Rect2(150, 0, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6qc4u"]
-atlas = ExtResource("2_03aid")
+atlas = ExtResource("3_xk3y1")
 region = Rect2(200, 0, 50, 50)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_unfja"]
-atlas = ExtResource("2_03aid")
+atlas = ExtResource("3_xk3y1")
 region = Rect2(250, 0, 50, 50)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fc8l8"]
@@ -42,20 +42,23 @@ animations = [{
 }]
 
 [sub_resource type="Resource" id="Resource_wxi6f"]
-script = ExtResource("2_nbjo4")
-speed = 10
+script = ExtResource("2_fwlty")
+speed = 0
 texture = SubResource("SpriteFrames_fc8l8")
 lifetime = 0.25
 hitbox_size = Vector2(8, 8)
 hitbox_offset = Vector2(0, 0)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_280we"]
-atlas = ExtResource("2_tej14")
-region = Rect2(0, 0, 90, 90)
+atlas = ExtResource("4_w74nu")
+region = Rect2(0, 90, 90, 90)
 
-[node name="Dagger" type="Node2D"]
-script = ExtResource("1_41iu4")
+[node name="GodSword" type="Node2D"]
+script = ExtResource("1_upn61")
+min_damage = 20
+max_damage = 20
+rate_of_fire = 3.0
 projectile_data = SubResource("Resource_wxi6f")
 texture = SubResource("AtlasTexture_280we")
-item_name = "Dagger"
-item_description = "A dull wooden dagger carved from the wood of an old oak tree."
+item_name = "God Sword"
+item_description = "Infinitely powerful weapon forged from cosmic horrors beyond comprehension. DEV TESTING ONLY."

@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://yn48swa551ny" path="res://assets/images/tilesets/tileset_16x16_rendered.png" id="6_ae7oo"]
 [ext_resource type="Texture2D" uid="uid://8mxvv0pjbjoo" path="res://assets/images/backgrounds/space_background_420x360.png" id="7_28pia"]
 [ext_resource type="Texture2D" uid="uid://y02ersmm37y2" path="res://assets/images/entities/characters/character_hercules_16x16_rendered.png" id="8_ejsn5"]
-[ext_resource type="PackedScene" uid="uid://bdy8chu6dv2ug" path="res://entities/Player.tscn" id="8_nyl6v"]
+[ext_resource type="PackedScene" uid="uid://bdy8chu6dv2ug" path="res://entities/friendlies/Player.tscn" id="8_nyl6v"]
 [ext_resource type="Texture2D" uid="uid://c5we66dc61jce" path="res://assets/images/entities/enemies/enemy_asteroid_construct_rendered.png" id="9_w1755"]
 
 [sub_resource type="TileSet" id="TileSet_njp3g"]

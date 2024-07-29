@@ -1,66 +1,37 @@
-[gd_scene load_steps=10 format=3 uid="uid://clr786swkle1h"]
+[gd_scene load_steps=5 format=3 uid="uid://clr786swkle1h"]
 
 [ext_resource type="Script" path="res://projectiles/Projectile.gd" id="1_ua5d0"]
-[ext_resource type="Texture2D" uid="uid://giaix5rphnij" path="res://assets/images/projectiles/projectiles_8x8_rendered.png" id="2_7grd6"]
 [ext_resource type="Script" path="res://addons/jam_launch/core/JamSync.gd" id="2_r47ax"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ba1kg"]
-atlas = ExtResource("2_7grd6")
-region = Rect2(100, 0, 50, 50)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pbx6n"]
-atlas = ExtResource("2_7grd6")
-region = Rect2(150, 0, 50, 50)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_23fer"]
-atlas = ExtResource("2_7grd6")
-region = Rect2(200, 0, 50, 50)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_80dp7"]
-atlas = ExtResource("2_7grd6")
-region = Rect2(250, 0, 50, 50)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_6b1n1"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ba1kg")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pbx6n")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_23fer")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_80dp7")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
+[sub_resource type="SpriteFrames" id="SpriteFrames_noa54"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lqhsw"]
 size = Vector2(8, 8)
 
 [node name="Projectile" type="RigidBody2D"]
-collision_layer = 0
-collision_mask = 2
+y_sort_enabled = true
+collision_layer = 4
+mass = 0.01
 lock_rotation = true
+max_contacts_reported = 1
+contact_monitor = true
 script = ExtResource("1_ua5d0")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
 scale = Vector2(0.2, 0.2)
-sprite_frames = SubResource("SpriteFrames_6b1n1")
-frame = 1
-frame_progress = 0.861351
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_lqhsw")
+sprite_frames = SubResource("SpriteFrames_noa54")
 
 [node name="JamSync" type="Node" parent="."]
 script = ExtResource("2_r47ax")
-spawn_properties = Array[String](["position"])
-sync_properties = Array[String](["position"])
+spawn_properties = Array[String](["position", "sender", "rotation", "lifetime"])
+sync_properties = Array[String](["position", "sender", "rotation", "lifetime"])
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 15
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_lqhsw")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]
