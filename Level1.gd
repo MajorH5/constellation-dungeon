@@ -35,7 +35,7 @@ func reset():
 		p.queue_free()
 
 func _process(delta):
-	if not multiplayer.is_server():
+	if not multiplayer.is_server() or len(get_players()) == 0:
 		return
 	last_enemy_spawn += delta
 	

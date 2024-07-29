@@ -85,7 +85,7 @@ func damage(amount: int, source: Variant) -> bool:
 	health_bar.set_health_percent(health * 1.0 / max_health)
 	
 	var damage_text = damage_text_scn.instantiate()
-	damage_text.position = Vector2(0, -20)
+	damage_text.position = Vector2(damage_text.position.x, -20)
 	damage_text.text = "-%d" % amount
 	add_child(damage_text)
 	
