@@ -27,7 +27,7 @@ const damage_text_scn = preload("res://ui/DamageText.tscn")
 @export var hostile: bool = false
 @export var fire_rate: float = 1
 @export var projectile_data: ProjectileData
-@export var base_damage: int = 1
+@export var base_damage: int = 0
 @export var despawn_on_death: bool = true
 
 var entity_id: int = -1
@@ -65,7 +65,7 @@ func spawn_projectile():
 	projectile.from_player = not hostile
 	projectile.lifetime = projectile_data.lifetime
 	projectile.sender = entity_id
-	projectile.position = position + attack_direction * 5 # just to fix z-fighting
+	projectile.position = position + attack_direction * projectile_data.spawn_distance
 	
 	#TODO: uhm how to do this bruh? jank boxes for now
 	#projectile.hitbox.shape = ????
@@ -125,6 +125,31 @@ func attack_to(direction: Vector2):
 		attack_direction = direction
 
 @rpc("any_peer")
+func set_own_position(goal_position: Vector2, goal_velocity: Vector2):
+	# allows players to arbitrarily set their
+	# player position if they own this entity
+	
+	if not multiplayer.is_server():
+		# sever is enforce and authoritative position set
+		position = goal_position
+		velocity = goal_velocity
+		return
+	
+	if multiplayer.get_remote_sender_id() != owner_id:
+		return
+	
+	if goal_position.x != goal_position.x or goal_position.y != goal_position.y:
+		return
+	
+	if goal_velocity.x != goal_velocity.x or goal_velocity.y != goal_velocity.y:
+		return
+	
+	# TODO: enforce atleast some kind of security constraints
+	# based on known info: player speed stats and timing
+	position = goal_position
+	velocity = goal_velocity
+
+@rpc("any_peer")
 func rpc_walk(direction: Vector2):
 	if multiplayer.get_remote_sender_id() != owner_id:
 		return
@@ -145,15 +170,15 @@ func walk_to(direction: Vector2):
 		# expects a unit vec
 		direction = direction.normalized()
 	
-	if not multiplayer.is_server():
-		if last_walking_direction != direction:
-			rpc_walk.rpc_id(1, direction)
-			last_walking_direction = direction
+	#if not multiplayer.is_server():
+		#if last_walking_direction != direction:
+			#rpc_walk.rpc_id(1, direction)
+			#last_walking_direction = direction
+	#else:
+	if direction == Vector2.ZERO:
+		velocity = Vector2.ZERO
 	else:
-		if direction == Vector2.ZERO:
-			velocity = Vector2.ZERO
-		else:
-			velocity = direction * BASE_SPEED_MULTIPLIER * speed
+		velocity = direction * BASE_SPEED_MULTIPLIER * speed
 
 func _process (delta):
 	if multiplayer.is_server():

@@ -12,14 +12,30 @@ func spawn_player(pid: int, player_name: String):
 	player.owner_id = pid
 	player.player_name = player_name
 	player.position = $SpawnPoints.get_children().pick_random().position
-	
+	player.server_position = player.position
 	player.name = str(pid)
 	$Players.add_child(player, true)
 
 	player.set_slot_item(
 		Item.SlotType.QUICK_SWAP,
 		Item.SLOT_WEAPON,
-		ItemLookup.get_item(ItemLookup.GOD_SWORD),
+		ItemLookup.get_item(ItemLookup.BOW),
+		1
+	)
+
+@rpc("any_peer")
+func equip_weapon(weapon_id: int):
+	var pid = multiplayer.get_remote_sender_id()
+	var player = $Players.get_node(str(pid))
+	var weapon = ItemLookup.get_item(weapon_id)
+	
+	if weapon == null or player == null:
+		return
+	
+	player.set_slot_item(
+		Item.SlotType.QUICK_SWAP,
+		Item.SLOT_WEAPON,
+		weapon,
 		1
 	)
 

@@ -6,3 +6,4 @@ extends Resource
 @export var lifetime: float = 1.0
 @export var hitbox_size: Vector2 = Vector2(8, 8)
 @export var hitbox_offset: Vector2 = Vector2.ZERO
+@export var spawn_distance: float = 5

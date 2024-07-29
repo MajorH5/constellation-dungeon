@@ -270,6 +270,7 @@ Label/styles/normal = SubResource("StyleBoxFlat_iomej")
 [node name="Player" type="CharacterBody2D"]
 y_sort_enabled = true
 collision_layer = 2
+input_pickable = true
 script = ExtResource("1_xni1k")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -295,8 +296,8 @@ position_smoothing_speed = 8.0
 
 [node name="JamSync" type="Node" parent="."]
 script = ExtResource("5_pxniy")
-spawn_properties = Array[String](["position", "owner_id", "player_name", "health", "entity_id", "max_health", "controls_locked"])
-sync_properties = Array[String](["position", "velocity", "attack_direction", "is_attacking", "health", "entity_id", "max_health", "controls_locked"])
+spawn_properties = Array[String](["owner_id", "player_name", "health", "entity_id", "max_health", "controls_locked"])
+sync_properties = Array[String](["attack_direction", "is_attacking", "health", "entity_id", "max_health", "controls_locked", "server_position", "server_velocity"])
 
 [node name="Nametag" type="Label" parent="."]
 z_index = 2
@@ -348,3 +349,5 @@ layout_mode = 2
 theme = SubResource("Theme_cya3f")
 text = "Some text to test asdsadsdasddsadas"
 horizontal_alignment = 1
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]

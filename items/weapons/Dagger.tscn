@@ -48,6 +48,7 @@ texture = SubResource("SpriteFrames_fc8l8")
 lifetime = 0.25
 hitbox_size = Vector2(8, 8)
 hitbox_offset = Vector2(0, 0)
+spawn_distance = 5.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_280we"]
 atlas = ExtResource("2_tej14")

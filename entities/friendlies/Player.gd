@@ -7,16 +7,21 @@ extends Entity
 
 @onready var camera: Camera2D = $Camera2D
 @onready var nametag: Label = $Nametag
+
+var server_position: Vector2 = Vector2.ZERO
+var server_velocity: Vector2 = Vector2.ZERO
+
 var hud: Control = null
-
 var player_name: String
-
 var inventory = []
+var DEV_item_index = 0
+var swap_time: float = 0
+
 #				  weapo. helm. ches. leg.  boot. acce.
 var quick_swaps: Array[Item] = [null, null, null, null, null, null]
 
 @rpc("any_peer")
-func uptate_gears():
+func intial_state():
 	# its okay to let other clients call this
 	# since it only lets them view gear not modify it
 	# NOTE: returns an array of item ids, must be converted
@@ -25,6 +30,9 @@ func uptate_gears():
 	for slot_index in range(len(quick_swaps)):
 		var item_id = ItemLookup.get_id(quick_swaps[slot_index])
 		client_set_slot_item.rpc(owner_id, Item.SlotType.QUICK_SWAP, slot_index, item_id, 1)
+	
+	# always set initial position, velocity when spawning
+	set_own_position.rpc_id(multiplayer.get_remote_sender_id(), position, velocity)
 
 func get_projectile_damage() -> int:
 	# need to consider weapon damage instead of only
@@ -107,7 +115,7 @@ func _ready():
 		nametag.modulate = Color(1, 1, 1, 0.5)
 	
 	if not multiplayer.is_server():
-		uptate_gears.rpc_id(1)
+		intial_state.rpc_id(1)
 	
 	nametag.text = player_name
 
@@ -142,6 +150,18 @@ func player_input():
 		#wont just blast up the server
 		walk_to(walk_direction)
 		attack_to(attack_dir)
+		
+		if Input.get_action_raw_strength("ui_select") == 1 and swap_time >= 0.5:
+			var level = find_parent("Level1")
+			
+			match(DEV_item_index):
+				0: level.equip_weapon.rpc_id(1, ItemLookup.GOD_SWORD)
+				1: level.equip_weapon.rpc_id(1, ItemLookup.DAGGER)
+				2: level.equip_weapon.rpc_id(1, ItemLookup.BOW)
+			
+			swap_time = 0
+			DEV_item_index = (DEV_item_index + 1) % 3
+		
 
 func _on_death():
 	super._on_death()
@@ -154,5 +174,26 @@ func lock_controls (is_locked: bool):
 	controls_locked = is_locked
 
 func _physics_process(delta):
+	swap_time += delta
+	
 	player_input()
 	hud.set_health(health, max_health)
+	
+	if multiplayer.is_server():
+		server_position = position
+		server_velocity = velocity
+		pass
+	else:
+		# we are allowing clients to be fully authoritative
+		# over their own position
+		# sacrificing some game integrity for reduced latency input lag
+		
+		if multiplayer.get_unique_id() != owner_id:
+			position = server_position
+			velocity = server_velocity
+		else:
+			pass
+			set_own_position.rpc_id(1, position, velocity)
+
+func _on_input_event(viewport, event, shape_idx):
+	print(multiplayer.is_server())
