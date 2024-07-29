@@ -119,6 +119,8 @@ func player_input():
 	# which are relating to movement and current
 	# attack direction
 	if controls_locked or is_dead():
+		if Input.get_action_raw_strength("respawn") == 1:
+			find_parent("Level1").respawn_player.rpc_id(1)
 		walk_to(Vector2.ZERO)
 		attack_to(Vector2.ZERO)
 		return

@@ -23,6 +23,18 @@ func spawn_player(pid: int, player_name: String):
 		1
 	)
 
+@rpc("any_peer")
+func respawn_player():
+	var pid = multiplayer.get_remote_sender_id()
+	var player = $Players.get_node(str(pid))
+	
+	if player == null:
+		return
+	
+	player.health = player.max_health
+	player.controls_locked = false
+	
+
 func remove_player(pid):
 	var p = $Players.get_node(str(pid))
 	if p != null:
