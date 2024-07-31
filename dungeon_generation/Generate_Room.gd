@@ -2,11 +2,6 @@
 extends Node2D
 var rng = RandomNumberGenerator.new()
 
-#const tile = preload("res://root/scenes/maps/Random_Map/Assets/Tile.tscn")
-#const startTile = preload("res://root/scenes/maps/Random_Map/Assets/start.tscn")
-#const endTile = preload("res://root/scenes/maps/Random_Map/Assets/end.tscn")
-#var player = preload("res://root/entities/player/player.tscn").instantiate()
-
 #Game parameters
 #Change to null if you want random gameWidth and gameHeight for variation
 const gameWidth = 20
@@ -25,9 +20,6 @@ const boardWidth = int(gameWidth / tileSize)
 const boardHeight = int(gameHeight / tileSize)
 var board = zeros(boardWidth, boardHeight)
 
-#starting and ending generation
-var start = Vector2(0,0)
-var end = Vector2(19,19)
 
 #Makes a 2d array with all 0's
 func zeros(x,y):
@@ -45,12 +37,6 @@ func startBoard():
 			var randomInt = rng.randi_range(0,10000)
 			if randomInt < chanceToStartAlive*10000:
 				board[row][col] = 1
-
-#Clears board, not really used, but just incase.
-func clearBoard():
-	for row in boardWidth:
-		for col in boardHeight:
-			board[row][col] = 0
 
 #Counts number of alive neighbors given a coordinate
 func countAliveNeigbors(x,y):
@@ -87,57 +73,40 @@ func simulationStep():
 					else:
 						board[row][col] = 0
 
-func doAStar():
+func doAStar(start, end):
 	var AStarGrid = AStarGrid2D.new()
 	AStarGrid.size = Vector2i(boardWidth, boardHeight)
 	AStarGrid.cell_size = Vector2i(tileSize, tileSize)
+	AStarGrid.default_compute_heuristic = 1
+	AStarGrid.diagonal_mode = 1
+	AStarGrid.update()
 	
 	for row in boardWidth:
 		for col in boardHeight:
 			if board[row][col] == 1:
 				AStarGrid.set_point_solid(Vector2i(row,col), true)
-	print('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+				
 	var res = AStarGrid.get_point_path(
 		start,
 		end
 	)
 	if res.size() == 0:
 		return false
-	print('ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg')
 	return true
 
-#Draws the tiles on map
-func drawMap():
-	for x in boardWidth:
-		for y in boardHeight:
-			if(board[x][y]==1):
-				pass
-				#var piece = tile.instantiate()
-				#piece.position = Vector2(x*tileSize,y*tileSize)
-				#add_child(piece)
-
 #generates board, this will always generate a viable board
-func generateBoard():
-	#Starts the board randomly
+func generateBoard(starting_list: Array[Vector2i], ending_list: Array[Vector2i]):
 	startBoard()
-	#Does cellular atomatia
 	simulationStep()
-	#Checks if the map is viable
-	while(!doAStar()):
-		#If not, clears board and keeps generating new board until something viable
-		clearBoard()
-		startBoard()
-		simulationStep()
-	
-
-@rpc("call_local")
-func _ready():
-	#spawn = Vector2(start[0]*tileSize,start[1]*tileSize)
-	generateBoard()
-	print(board)
-	#drawMap()
-	#Global.updated_respawn(Vector2(start[0]*tileSize,start[1]*tileSize))
-	
-
-func _process(delta):
-	pass
+	var all_paths_found = false
+	while(not all_paths_found):
+		all_paths_found = true
+		for starting_point in starting_list:
+			for ending_point in ending_list:
+				if not doAStar(starting_point, ending_point):
+					all_paths_found = false
+		
+		if not all_paths_found:
+			startBoard()
+			simulationStep()
+	return board
