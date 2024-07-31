@@ -19,7 +19,21 @@ func spawn_player(pid: int, player_name: String):
 	player.set_slot_item(
 		Item.SlotType.QUICK_SWAP,
 		Item.SLOT_WEAPON,
-		ItemLookup.get_item(ItemLookup.BOW),
+		ItemLookup.get_item(ItemLookup.GOLD_BOW),
+		1
+	)
+	
+	player.set_slot_item(
+		Item.SlotType.QUICK_SWAP,
+		Item.SLOT_HELMET,
+		ItemLookup.get_item(ItemLookup.WOODEN_HELMET),
+		1
+	)
+	
+	player.set_slot_item(
+		Item.SlotType.INVENTORY,
+		0,
+		ItemLookup.get_item(ItemLookup.WOODEN_HELMET),
 		1
 	)
 
@@ -69,7 +83,12 @@ func _process(delta):
 	last_enemy_spawn += delta
 	
 	if last_enemy_spawn >= enemy_spawn_rate and len($Enemies.get_children()) < max_enemies:
-		var enemy = load("res://entities/hostiles/BadOmen.tscn").instantiate()
+		var scene = "res://entities/hostiles/AsteroidConstruct.tscn"
+		
+		if randf() < 0.5:
+			scene = "res://entities/hostiles/BadOmen.tscn"
+		
+		var enemy = load(scene).instantiate()
 		enemy.position = $SpawnPoints.get_children().pick_random().position
 		$Enemies.add_child(enemy, true)
 		last_enemy_spawn = 0

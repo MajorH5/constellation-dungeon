@@ -349,5 +349,3 @@ layout_mode = 2
 theme = SubResource("Theme_cya3f")
 text = "Some text to test asdsadsdasddsadas"
 horizontal_alignment = 1
-
-[connection signal="input_event" from="." to="." method="_on_input_event"]

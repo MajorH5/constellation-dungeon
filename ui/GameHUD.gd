@@ -1,15 +1,17 @@
 extends Control
 
-@onready var health_bar: ColorRect = $Status/HealthBar
-@onready var health_progress: ColorRect = $Status/HealthBar/Progress
-@onready var health_label: Label = $Status/HealthBar/Health
+@onready var health_bar = $Status/HealthBar
+@onready var health_progress = $Status/HealthBar/Progress
+@onready var health_label = $Status/HealthBar/Health
 
-@onready var weapon: Control = $QuickSwaps/GridContainer/Weapon
-@onready var helmet: Control = $QuickSwaps/GridContainer/Helmet
-@onready var chestplate: Control = $QuickSwaps/GridContainer/Chestplate
-@onready var leggings: Control = $QuickSwaps/GridContainer/Leggings
-@onready var boots: Control = $QuickSwaps/GridContainer/Boots
-@onready var accessory: Control = $QuickSwaps/GridContainer/Accessory
+@onready var weapon = $QuickSwaps/GridContainer/Weapon
+@onready var helmet = $QuickSwaps/GridContainer/Helmet
+@onready var chestplate = $QuickSwaps/GridContainer/Chestplate
+@onready var leggings = $QuickSwaps/GridContainer/Leggings
+@onready var boots = $QuickSwaps/GridContainer/Boots
+@onready var accessory = $QuickSwaps/GridContainer/Accessory
+
+@onready var backpack = $BackpackWindow
 
 var quick_swaps: Array[Item] = [null, null, null, null, null, null]
 
@@ -86,3 +88,11 @@ func set_quick_swap_item (slot_id: int, item: Item):
 	
 	quick_swaps[slot_id] = item
 	update_quick_swap_description(slot_id)
+
+
+func _on_satchel_button_down():
+	if backpack.is_open():
+		backpack.close()
+	else:
+		backpack.open_satchel()
+	

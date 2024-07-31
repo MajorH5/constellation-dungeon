@@ -14,7 +14,8 @@ enum {
 
 enum SlotType {
 	QUICK_SWAP,
-	INVENTORY
+	INVENTORY,
+	CONTAINER
 }
 
 @export var texture: AtlasTexture

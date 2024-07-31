@@ -13,5 +13,14 @@ func get_rand_damage() -> int:
 	return floori(min_damage + (max_damage - min_damage) * randf())
 
 func get_descriptor() -> String:
-	var item_desc = super.get_descriptor()	
-	return "%s\n[color=red]Damage: %s-%s[/color]\n[color=yellow]Attack Speed: %.2f[/color]" % [item_desc, min_damage, max_damage, rate_of_fire]
+	var item_desc = super.get_descriptor()
+	
+	var damage_txt = "[color=#f56642]DMG: %d-%d[/color]" % [min_damage, max_damage]
+	var attackspd_txt = "[color=yellow]RATE: %.1f[/color]" % rate_of_fire 
+	
+	var bullets_txt = "[color=#9c9391]BLTS: %d[/color]" % projectile_data.amount
+	var speed_txt = "[color=#2c9944]SPD: %.1f[/color]" % projectile_data.speed
+	
+	var range_txt = "[color=#d9861a]RANG: %d [/color]" % floori(projectile_data.speed * projectile_data.lifetime * 13)
+	
+	return "%s\n[b]%s\t\t%s\n%s\t\t%s\n%s[/b]" % [item_desc, damage_txt, attackspd_txt, bullets_txt, speed_txt, range_txt]

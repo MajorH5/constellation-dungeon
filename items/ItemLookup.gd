@@ -4,13 +4,23 @@ extends Node
 enum {
 	DAGGER,
 	BOW,
-	GOD_SWORD
+	GOD_SWORD,
+	SILVER_BOW,
+	GOLD_BOW,
+	WOODEN_HELMET, WOODEN_CHESTPLATE,
+	WOODEN_LEGGINGS, WOODEN_BOOTS
 }
 
 static var registry = {
 	DAGGER: preload("res://items/weapons/Dagger.tscn"),
 	BOW: preload("res://items/weapons/Bow.tscn"),
-	GOD_SWORD: preload("res://items/weapons/GodSword.tscn")
+	GOD_SWORD: preload("res://items/weapons/GodSword.tscn"),
+	SILVER_BOW: preload("res://items/weapons/SilverBow.tscn"),
+	GOLD_BOW: preload("res://items/weapons/GoldBow.tscn"),
+	WOODEN_HELMET: preload("res://items/armors/WoodenHelmet.tscn"),
+	WOODEN_CHESTPLATE: preload("res://items/armors/WoodenChestplate.tscn"),
+	WOODEN_LEGGINGS: preload("res://items/armors/WoodenLeggings.tscn"),
+	WOODEN_BOOTS: preload("res://items/armors/WoodenBoots.tscn")
 }
 
 static func get_id (item: Item) -> int:

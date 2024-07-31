@@ -66,10 +66,10 @@ offset_bottom = 212.0
 text = " "
 
 [node name="BackpackWindow" parent="." instance=ExtResource("5_feeal")]
-visible = false
 layout_mode = 1
 
 [node name="MenuOptions" type="Control" parent="."]
+z_index = 2
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -207,6 +207,7 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="QuickSwaps" type="Control" parent="."]
+z_index = 2
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -245,6 +246,7 @@ region_rect = Rect2(90, 0, 90, 90)
 
 [node name="NinePatchRect" type="NinePatchRect" parent="QuickSwaps/GridContainer/Weapon"]
 visible = false
+layout_mode = 0
 offset_left = 44.0
 offset_top = -224.0
 offset_right = 455.0
@@ -287,6 +289,7 @@ region_rect = Rect2(0, 90, 90, 90)
 
 [node name="NinePatchRect" type="NinePatchRect" parent="QuickSwaps/GridContainer/Helmet"]
 visible = false
+layout_mode = 0
 offset_left = 44.0
 offset_top = -224.0
 offset_right = 455.0
@@ -329,6 +332,7 @@ region_rect = Rect2(0, 90, 90, 90)
 
 [node name="NinePatchRect" type="NinePatchRect" parent="QuickSwaps/GridContainer/Chestplate"]
 visible = false
+layout_mode = 0
 offset_left = 44.0
 offset_top = -224.0
 offset_right = 455.0
@@ -370,6 +374,7 @@ region_rect = Rect2(90, 90, 90, 90)
 
 [node name="NinePatchRect" type="NinePatchRect" parent="QuickSwaps/GridContainer/Leggings"]
 visible = false
+layout_mode = 0
 offset_left = 44.0
 offset_top = -224.0
 offset_right = 455.0
@@ -411,6 +416,7 @@ region_rect = Rect2(0, 90, 90, 90)
 
 [node name="NinePatchRect" type="NinePatchRect" parent="QuickSwaps/GridContainer/Boots"]
 visible = false
+layout_mode = 0
 offset_left = 44.0
 offset_top = -224.0
 offset_right = 455.0
@@ -452,6 +458,7 @@ region_rect = Rect2(90, 90, 90, 90)
 
 [node name="NinePatchRect" type="NinePatchRect" parent="QuickSwaps/GridContainer/Accessory"]
 visible = false
+layout_mode = 0
 offset_left = 44.0
 offset_top = -224.0
 offset_right = 455.0
@@ -514,6 +521,7 @@ offset_bottom = -3.0
 theme_override_fonts/font = ExtResource("7_33l7m")
 text = "HP: 86 / 100"
 
+[connection signal="button_down" from="MenuOptions/Satchel" to="." method="_on_satchel_button_down"]
 [connection signal="mouse_entered" from="MenuOptions/Satchel" to="MenuOptions/Satchel" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="MenuOptions/Satchel" to="MenuOptions/Satchel" method="_on_mouse_exited"]
 [connection signal="mouse_entered" from="MenuOptions/Skill Tree" to="MenuOptions/Skill Tree" method="_on_mouse_entered"]

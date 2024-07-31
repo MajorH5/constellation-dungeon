@@ -22,12 +22,14 @@ animations = [{
 
 [sub_resource type="Resource" id="Resource_vv6sg"]
 script = ExtResource("2_w87kt")
-speed = 15
+speed = 13.7
 texture = SubResource("SpriteFrames_rd7qy")
-lifetime = 10.0
+lifetime = 0.5
 hitbox_size = Vector2(8, 8)
 hitbox_offset = Vector2(0, 0)
 spawn_distance = 5.0
+amount = 1
+spread = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4vvw6"]
 atlas = ExtResource("3_j2w71")
@@ -35,9 +37,9 @@ region = Rect2(0, 0, 90, 90)
 
 [node name="Bow" type="Node2D"]
 script = ExtResource("1_0yxst")
-min_damage = 15
-max_damage = 28
-rate_of_fire = 5.0
+min_damage = 9
+max_damage = 13
+rate_of_fire = 3.0
 projectile_data = SubResource("Resource_vv6sg")
 texture = SubResource("AtlasTexture_4vvw6")
 item_name = "Bow"

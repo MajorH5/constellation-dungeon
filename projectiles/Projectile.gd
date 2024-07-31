@@ -23,7 +23,7 @@ func _on_body_entered(body):
 	# fires whenever the projectile has collided with
 	# some entity in the world
 	
-	if not multiplayer.is_server():
+	if multiplayer.is_server():
 		return
 	
 	if not (body is Entity):
@@ -34,9 +34,16 @@ func _on_body_entered(body):
 	var friendly_hitting_hostile = from_player and body.hostile
 	var hostile_hitting_friendly = not from_player and not body.hostile
 
-	if (friendly_hitting_hostile or hostile_hitting_friendly) and not body.is_dead():
-		body.damage(damage, self)
-		queue_free()
+	var from_entity = Entity.entity_registry.get(sender)
+
+	if not body.is_dead():
+		if friendly_hitting_hostile and from_entity.owner_id == multiplayer.get_unique_id():
+			body.register_projectile_hit.rpc_id(1, from_entity.entity_id)
+			queue_free()
+		elif hostile_hitting_friendly and body.owner_id == multiplayer.get_unique_id():
+			body.register_self_hit.rpc_id(1, from_entity.entity_id)
+			queue_free()
+		
 
 func _ready ():
 	if not multiplayer.is_server():
@@ -60,6 +67,6 @@ func _process (delta: float):
 	# updaes the projectile's lifetime
 	# counting down till when it despawns
 	lifetime -= delta
-	
+
 	if lifetime <= 0:
 		queue_free()

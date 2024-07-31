@@ -27,12 +27,14 @@ animations = [{
 
 [sub_resource type="Resource" id="Resource_xylgd"]
 script = ExtResource("2_y682t")
-speed = 10
+speed = 10.0
 texture = SubResource("SpriteFrames_e3bps")
 lifetime = 1.0
 hitbox_size = Vector2(8, 8)
 hitbox_offset = Vector2(0, 0)
 spawn_distance = 5.0
+amount = 1
+spread = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_exmdc"]
 atlas = ExtResource("2_wpruo")
@@ -280,7 +282,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0j5fa"]
 size = Vector2(8, 8)
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="BadOmen" type="CharacterBody2D"]
 collision_layer = 8
 collision_mask = 5
 script = ExtResource("1_lx825")
@@ -303,6 +305,7 @@ sprite_size = Vector2(90, 90)
 use_death_anim_timing = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_0j5fa")
 
 [node name="HealthBar" parent="." instance=ExtResource("6_27c8s")]

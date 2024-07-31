@@ -1,0 +1,179 @@
+[gd_scene load_steps=17 format=3 uid="uid://cklnc065qfspd"]
+
+[ext_resource type="Script" path="res://objects/Chest.gd" id="1_6q73x"]
+[ext_resource type="Texture2D" uid="uid://uaec44gr0fie" path="res://assets/images/objects/objects_8x8_rendered.png" id="2_blwed"]
+[ext_resource type="Script" path="res://addons/jam_launch/core/JamSync.gd" id="3_bhcua"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bwatx"]
+size = Vector2(10, 10)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_esv7d"]
+atlas = ExtResource("2_blwed")
+region = Rect2(0, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qbpq7"]
+atlas = ExtResource("2_blwed")
+region = Rect2(50, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dnke5"]
+atlas = ExtResource("2_blwed")
+region = Rect2(0, 50, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_301vd"]
+atlas = ExtResource("2_blwed")
+region = Rect2(50, 50, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l4lrq"]
+atlas = ExtResource("2_blwed")
+region = Rect2(100, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kvha4"]
+atlas = ExtResource("2_blwed")
+region = Rect2(150, 0, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u2vj2"]
+atlas = ExtResource("2_blwed")
+region = Rect2(100, 50, 50, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ytak3"]
+atlas = ExtResource("2_blwed")
+region = Rect2(150, 50, 50, 50)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qv6pb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_esv7d")
+}],
+"loop": true,
+"name": &"bronze_closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qbpq7")
+}],
+"loop": true,
+"name": &"bronze_open",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dnke5")
+}],
+"loop": true,
+"name": &"emerald_closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_301vd")
+}],
+"loop": true,
+"name": &"emerald_open",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l4lrq")
+}],
+"loop": true,
+"name": &"ruby_closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kvha4")
+}],
+"loop": true,
+"name": &"ruby_open",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u2vj2")
+}],
+"loop": true,
+"name": &"silver_closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ytak3")
+}],
+"loop": true,
+"name": &"silver_open",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_37lad"]
+resource_name = "squash"
+length = 0.6485
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0922, 0.2235, 0.3675),
+"transitions": PackedFloat32Array(7.72749, 0.34151, 0.615572, 2.63902),
+"update": 0,
+"values": [Vector2(0.2, 0.2), Vector2(0.2, 0.1), Vector2(0.1, 0.3), Vector2(0.2, 0.2)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2btoh"]
+_data = {
+"squash": SubResource("Animation_37lad")
+}
+
+[sub_resource type="Theme" id="Theme_163jf"]
+default_font_size = 100
+Label/colors/font_outline_color = Color(0.226707, 0.226707, 0.226707, 1)
+Label/constants/outline_size = 30
+Label/constants/shadow_offset_x = 30
+Label/constants/shadow_offset_y = 30
+
+[node name="Chest" type="Area2D"]
+y_sort_enabled = true
+collision_mask = 2
+script = ExtResource("1_6q73x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_bwatx")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
+scale = Vector2(0.2, 0.2)
+sprite_frames = SubResource("SpriteFrames_qv6pb")
+animation = &"bronze_closed"
+
+[node name="JamSync" type="Node" parent="."]
+script = ExtResource("3_bhcua")
+spawn_properties = Array[String](["type"])
+sync_properties = Array[String](["position", "type", "container_id", "server_content"])
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_2btoh")
+}
+
+[node name="Interact" type="Label" parent="."]
+visible = false
+z_index = 5
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -16.0
+offset_top = -11.0
+offset_right = 910.0
+offset_bottom = 126.0
+grow_horizontal = 2
+scale = Vector2(0.0351275, 0.0351275)
+theme = SubResource("Theme_163jf")
+text = "E"
+horizontal_alignment = 1
+
+[connection signal="body_entered" from="." to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_area_2d_body_exited"]

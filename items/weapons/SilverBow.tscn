@@ -1,0 +1,46 @@
+[gd_scene load_steps=9 format=3 uid="uid://btvc76migthp3"]
+
+[ext_resource type="Script" path="res://items/weapons/Weapon.gd" id="1_gigpl"]
+[ext_resource type="Script" path="res://projectiles/ProjectileData.gd" id="2_0p8bm"]
+[ext_resource type="Texture2D" uid="uid://giaix5rphnij" path="res://assets/images/projectiles/projectiles_8x8_rendered.png" id="3_yu1yu"]
+[ext_resource type="Texture2D" uid="uid://dge0lec5s7xas" path="res://assets/images/items/items_ranged_16x16_rendered.png" id="4_2j2el"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u7lym"]
+atlas = ExtResource("3_yu1yu")
+region = Rect2(0, 50, 50, 50)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rd7qy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u7lym")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Resource" id="Resource_vv6sg"]
+script = ExtResource("2_0p8bm")
+speed = 14.8
+texture = SubResource("SpriteFrames_rd7qy")
+lifetime = 0.5
+hitbox_size = Vector2(8, 8)
+hitbox_offset = Vector2(0, 0)
+spawn_distance = 5.0
+amount = 2
+spread = 8.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4vvw6"]
+atlas = ExtResource("4_2j2el")
+region = Rect2(90, 0, 90, 90)
+
+[node name="SilverBow" type="Node2D"]
+script = ExtResource("1_gigpl")
+min_damage = 13
+max_damage = 18
+rate_of_fire = 3.66
+projectile_data = SubResource("Resource_vv6sg")
+texture = SubResource("AtlasTexture_4vvw6")
+item_name = "Silver Bow"
+item_description = "A metal alloy bow forged from asteroid rock material."

@@ -43,12 +43,14 @@ animations = [{
 
 [sub_resource type="Resource" id="Resource_wxi6f"]
 script = ExtResource("2_nbjo4")
-speed = 10
+speed = 3.0
 texture = SubResource("SpriteFrames_fc8l8")
-lifetime = 0.25
+lifetime = 0.35
 hitbox_size = Vector2(8, 8)
 hitbox_offset = Vector2(0, 0)
-spawn_distance = 5.0
+spawn_distance = 10.0
+amount = 1
+spread = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_280we"]
 atlas = ExtResource("2_tej14")

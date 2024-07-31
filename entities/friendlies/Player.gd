@@ -13,12 +13,12 @@ var server_velocity: Vector2 = Vector2.ZERO
 
 var hud: Control = null
 var player_name: String
-var inventory = []
 var DEV_item_index = 0
 var swap_time: float = 0
 
 #				  weapo. helm. ches. leg.  boot. acce.
 var quick_swaps: Array[Item] = [null, null, null, null, null, null]
+var satchel = {}
 
 @rpc("any_peer")
 func intial_state():
@@ -31,8 +31,85 @@ func intial_state():
 		var item_id = ItemLookup.get_id(quick_swaps[slot_index])
 		client_set_slot_item.rpc(owner_id, Item.SlotType.QUICK_SWAP, slot_index, item_id, 1)
 	
+	for slot_index in satchel:
+		var item = satchel.get(slot_index)
+		var item_id = ItemLookup.get_id(item)
+		client_set_slot_item.rpc(owner_id, Item.SlotType.INVENTORY, slot_index, item_id, item.quantity)
+	
 	# always set initial position, velocity when spawning
 	set_own_position.rpc_id(multiplayer.get_remote_sender_id(), position, velocity)
+
+@rpc("any_peer")
+func swap_slots(orig_type: Item.SlotType, orig_index: int, dest_type: Item.SlotType, dest_index: int, container_id: int):
+	if orig_type == Item.SlotType.INVENTORY and dest_type == Item.SlotType.INVENTORY:
+		# inv <--> inv item swapping
+		
+		if orig_index < 0 or orig_index >= 24: return
+		if dest_index < 0 or dest_index >= 24: return
+		
+		var orig_item = satchel.get(orig_index)
+		var dest_item = satchel.get(dest_index)
+		
+		if orig_item != null and dest_item != null and orig_item.item_name == dest_item.item_name:
+			set_slot_item(Item.SlotType.INVENTORY, dest_index, orig_item, orig_item.quantity + dest_item.quantity)
+			set_slot_item(Item.SlotType.INVENTORY, orig_index, null, -1)
+		else:
+			set_slot_item(Item.SlotType.INVENTORY, orig_index, dest_item, -1)
+			set_slot_item(Item.SlotType.INVENTORY, dest_index, orig_item, -1)
+	elif orig_type == Item.SlotType.CONTAINER and dest_type == Item.SlotType.CONTAINER:
+		# container <-> container item swapping
+		
+		if orig_index < 0 or orig_index >= 15: return
+		if dest_index < 0 or dest_index >= 15: return
+		
+		var container: Chest = Chest.global.get(container_id)
+		
+		if container == null: return
+		
+		var orig_item = container.contents.get(orig_index)
+		var dest_item = container.contents.get(dest_index)
+		
+		if orig_item != null and dest_item != null and orig_item.item_name == dest_item.item_name:
+			set_slot_item(Item.SlotType.CONTAINER, dest_index, orig_item, orig_item.quantity + dest_item.quantity, container_id)
+			set_slot_item(Item.SlotType.CONTAINER, orig_index, null, -1, container_id)
+		else:
+			set_slot_item(Item.SlotType.CONTAINER, orig_index, dest_item, -1, container_id)
+			set_slot_item(Item.SlotType.CONTAINER, dest_index, orig_item, -1, container_id)
+	elif orig_type == Item.SlotType.CONTAINER and dest_type == Item.SlotType.INVENTORY:
+		# container <-> inventory item swapping
+		if orig_index < 0 or orig_index >= 15: return
+		if dest_index < 0 or dest_index >= 24: return
+		
+		var container: Chest = Chest.global.get(container_id)
+		if container == null: return
+		
+		var orig_item = container.contents.get(orig_index)
+		var dest_item = satchel.get(dest_index)
+		
+		if orig_item != null and dest_item != null and orig_item.item_name == dest_item.item_name:
+			set_slot_item(Item.SlotType.INVENTORY, dest_index, orig_item, orig_item.quantity + dest_item.quantity)
+			set_slot_item(Item.SlotType.CONTAINER, orig_index, null, -1, container_id)
+		else:
+			set_slot_item(Item.SlotType.CONTAINER, orig_index, dest_item, -1, container_id)
+			set_slot_item(Item.SlotType.INVENTORY, dest_index, orig_item, -1)
+	elif orig_type == Item.SlotType.INVENTORY and dest_type == Item.SlotType.CONTAINER:
+		# inventory <-> container item swapping
+		if orig_index < 0 or orig_index >= 24: return
+		if dest_index < 0 or dest_index >= 15: return
+		
+		var container: Chest = Chest.global.get(container_id)
+		if container == null: return
+		
+		var orig_item = satchel.get(orig_index)
+		var dest_item = container.contents.get(dest_index)
+		
+		if orig_item != null and dest_item != null and orig_item.item_name == dest_item.item_name:
+			set_slot_item(Item.SlotType.CONTAINER, dest_index, orig_item, orig_item.quantity + dest_item.quantity, container_id)
+			set_slot_item(Item.SlotType.INVENTORY, orig_index, null, -1)
+		else:
+			set_slot_item(Item.SlotType.INVENTORY, orig_index, dest_item, -1)
+			set_slot_item(Item.SlotType.CONTAINER, dest_index, orig_item, -1, container_id)
+
 
 func get_projectile_damage() -> int:
 	# need to consider weapon damage instead of only
@@ -58,7 +135,7 @@ func on_weapon_equip (weapon: Item):
 		projectile_data = null
 
 @rpc("authority")
-func client_set_slot_item (id: int, slot_type: Item.SlotType, slot_index: int, item_id: int, quantity: int):
+func client_set_slot_item (id: int, slot_type: Item.SlotType, slot_index: int, item_id: int, quantity: int, container_id: int = -1):
 	# equivalent to set_slot_item but instead is to be called by
 	# server to let client know to change equipment info using item_id
 	# since objects dont serialize over rpc
@@ -72,18 +149,33 @@ func client_set_slot_item (id: int, slot_type: Item.SlotType, slot_index: int, i
 		push_warning("[Player.client_set_slot_item]: Item slot set failed for item id %d because the item was not found!" % item_id)
 		return
 	
-	set_slot_item(slot_type, slot_index, item, quantity)
+	set_slot_item(slot_type, slot_index, item, quantity, container_id)
 
 @rpc("authority")
-func set_slot_item(slot_type: Item.SlotType, slot_index: int, item: Item, quantity: int):
+func set_slot_item(slot_type: Item.SlotType, slot_index: int, item: Item, quantity: int, container_id: int = -1):
+	# NOTE: negative quantitie are ignored
 	if item != null:
-		item.quantity = quantity
+		if quantity > 0:
+			item.quantity = quantity
+		else:
+			quantity = item.quantity
 	
 	if slot_type == Item.SlotType.QUICK_SWAP:
 		quick_swaps[slot_index] = item
 		
 		match slot_index:
 			Item.SLOT_WEAPON: on_weapon_equip(item)
+	elif slot_type == Item.SlotType.INVENTORY:
+		if item == null:
+			satchel.erase(slot_index)
+		else:
+			satchel[slot_index] = item
+	elif slot_type == Item.SlotType.CONTAINER:
+		var container = Chest.global.get(container_id)
+		
+		print(slot_index, item, container)
+		if container != null:
+			container.set_slot(slot_index, item)
 	
 	if multiplayer.is_server():
 		var item_id = ItemLookup.get_id(item)
@@ -92,13 +184,22 @@ func set_slot_item(slot_type: Item.SlotType, slot_index: int, item: Item, quanti
 			push_warning("[Player.set_slot_item]: An item with unregisteried id was placed on the player! Item name: %s" % item.item_name)
 			return
 		
-		client_set_slot_item.rpc(owner_id, slot_type, slot_index, item_id, quantity)
+		client_set_slot_item.rpc(owner_id, slot_type, slot_index, item_id, quantity, container_id)
 	else:
 		print("Server Slot Set! slot_type: ", slot_type, " slot_index: ", slot_index, " item: ", item.item_name if item != null else "null", " quantity: ", quantity)
 		
 		# update ui to reflect item state
-		if slot_type == Item.SlotType.QUICK_SWAP:
-			hud.set_quick_swap_item(slot_index, item)
+		if multiplayer.get_unique_id() == owner_id:
+			if slot_type == Item.SlotType.QUICK_SWAP:
+				hud.set_quick_swap_item(slot_index, item)
+			elif slot_type == Item.SlotType.INVENTORY:
+				hud.backpack.set_satchel(satchel)
+			elif slot_type == Item.SlotType.CONTAINER:
+				var current = Chest.get_current()
+				
+				if hud.backpack.is_looking_at(current):
+					hud.backpack.set_container(current.contents)
+					
 
 func _ready():
 	despawn_on_death = false
@@ -111,6 +212,7 @@ func _ready():
 	if multiplayer.get_unique_id() == owner_id:
 		camera.make_current()
 		hud.set_health(health, max_health)
+		hud.backpack.set_satchel(satchel)
 	else:
 		nametag.modulate = Color(1, 1, 1, 0.5)
 	
@@ -151,16 +253,20 @@ func player_input():
 		walk_to(walk_direction)
 		attack_to(attack_dir)
 		
-		if Input.get_action_raw_strength("ui_select") == 1 and swap_time >= 0.5:
-			var level = find_parent("Level1")
+		if Input.get_action_raw_strength("ui_select") == 1:
+			if swap_time >= 0.5:
+				var level = find_parent("Level1")
+				
+				match(DEV_item_index):
+					0: level.equip_weapon.rpc_id(1, ItemLookup.GOD_SWORD)
+					1: level.equip_weapon.rpc_id(1, ItemLookup.DAGGER)
+					2: level.equip_weapon.rpc_id(1, ItemLookup.BOW)
+				
+				swap_time = 0
+				DEV_item_index = (DEV_item_index + 1) % 3
 			
-			match(DEV_item_index):
-				0: level.equip_weapon.rpc_id(1, ItemLookup.GOD_SWORD)
-				1: level.equip_weapon.rpc_id(1, ItemLookup.DAGGER)
-				2: level.equip_weapon.rpc_id(1, ItemLookup.BOW)
-			
-			swap_time = 0
-			DEV_item_index = (DEV_item_index + 1) % 3
+			if hud.backpack.is_open():
+				hud.backpack.close()
 		
 
 func _on_death():
@@ -177,13 +283,15 @@ func _physics_process(delta):
 	swap_time += delta
 	
 	player_input()
-	hud.set_health(health, max_health)
 	
 	if multiplayer.is_server():
 		server_position = position
 		server_velocity = velocity
 		pass
 	else:
+		if owner_id == multiplayer.get_unique_id():
+			hud.set_health(health, max_health)
+		
 		# we are allowing clients to be fully authoritative
 		# over their own position
 		# sacrificing some game integrity for reduced latency input lag
@@ -192,8 +300,23 @@ func _physics_process(delta):
 			position = server_position
 			velocity = server_velocity
 		else:
-			pass
 			set_own_position.rpc_id(1, position, velocity)
 
-func _on_input_event(viewport, event, shape_idx):
-	print(multiplayer.is_server())
+func _input(event):
+	if multiplayer.get_unique_id() != owner_id:
+		return
+	
+	if event is InputEventKey and event.is_pressed():
+		if event.keycode == KEY_E and not is_dead():
+			var current_chest = Chest.get_current()
+			
+			if current_chest == null:
+				if hud.backpack.is_open():
+					hud.backpack.close()
+				return
+			
+			if hud.backpack.is_viewing_container():
+				hud.backpack.close()
+			else:
+				hud.backpack.set_container(current_chest.contents)
+				hud.backpack.open_container()

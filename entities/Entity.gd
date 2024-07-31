@@ -12,6 +12,7 @@ static var entity_id_track: int = 0
 
 const projectile_scn = preload("res://projectiles/Projectile.tscn")
 const damage_text_scn = preload("res://ui/DamageText.tscn")
+const chest_scn = preload("res://objects/Chest.tscn")
 
 @onready var sprite = $AnimatedSprite2D
 @onready var health_bar = $HealthBar
@@ -29,6 +30,7 @@ const damage_text_scn = preload("res://ui/DamageText.tscn")
 @export var projectile_data: ProjectileData
 @export var base_damage: int = 0
 @export var despawn_on_death: bool = true
+@export var drop_data: Array[ItemDropData] = []
 
 var entity_id: int = -1
 var owner_id: int # unique multiplayer client id or blank if server owned
@@ -52,25 +54,32 @@ func spawn_projectile():
 	
 	if is_dead():
 		return
-	
-	var projectile = projectile_scn.instantiate()
-	
+		
 	# dont need this in degrees but helps with visualization...
-	var radians = atan2(-attack_direction.y, attack_direction.x)
-	var degrees = floori(rad_to_deg(radians) + 360) % 360
 	
-	projectile.linear_velocity = attack_direction * projectile_data.speed * Projectile.BASE_PROJECTILE_SPEED
-	projectile.damage = get_projectile_damage()
-	projectile.rotation_degrees = 45 - degrees
-	projectile.from_player = not hostile
-	projectile.lifetime = projectile_data.lifetime
-	projectile.sender = entity_id
-	projectile.position = position + attack_direction * projectile_data.spawn_distance
+	var total_projectiles = projectile_data.amount
 	
-	#TODO: uhm how to do this bruh? jank boxes for now
-	#projectile.hitbox.shape = ????
-	
-	get_parent().get_parent().add_child(projectile)
+	for i in range(total_projectiles):
+		var projectile = projectile_scn.instantiate()
+		
+		var emission_angle = (i - (total_projectiles / 2)) * deg_to_rad(projectile_data.spread) + atan2(attack_direction.y, attack_direction.x)
+		var emission_direction = Vector2(cos(emission_angle), sin(emission_angle))
+		
+		var radians = atan2(-emission_direction.y, emission_direction.x)
+		var degrees = floori(rad_to_deg(radians) + 360) % 360
+		
+		projectile.linear_velocity = emission_direction * projectile_data.speed * Projectile.BASE_PROJECTILE_SPEED
+		projectile.damage = get_projectile_damage()
+		projectile.rotation_degrees = 45 - degrees
+		projectile.from_player = not hostile
+		projectile.lifetime = projectile_data.lifetime
+		projectile.sender = entity_id
+		projectile.position = position + emission_direction * projectile_data.spawn_distance
+		
+		#TODO: uhm how to do this bruh? jank boxes for now
+		#projectile.hitbox.shape = ????
+		
+		get_parent().get_parent().add_child(projectile)
 
 func get_projectile_damage() -> int:
 	return base_damage
@@ -123,6 +132,39 @@ func attack_to(direction: Vector2):
 		
 		is_attacking = true
 		attack_direction = direction
+
+@rpc("any_peer")
+func register_projectile_hit(sender_id: int):
+	if sender_id != sender_id:
+		return
+		
+	var sender = Entity.entity_registry.get(sender_id)
+	
+	if sender == null:
+		return
+	
+	if multiplayer.get_remote_sender_id() != sender.owner_id:
+		return
+	
+	damage(sender.get_projectile_damage(), sender)
+
+@rpc("any_peer")
+func register_self_hit(attacker_id: int):
+	if multiplayer.get_remote_sender_id() != owner_id:
+		print("rsh fail 1")
+		return
+	
+	if attacker_id != attacker_id:
+		print("rsh fail 2")
+		return
+	
+	var attacker = Entity.entity_registry.get(attacker_id)
+	
+	if attacker == null:
+		print("rsh fail 3")
+		return
+	
+	damage(attacker.get_projectile_damage(), attacker)
 
 @rpc("any_peer")
 func set_own_position(goal_position: Vector2, goal_velocity: Vector2):
@@ -181,7 +223,7 @@ func walk_to(direction: Vector2):
 		velocity = direction * BASE_SPEED_MULTIPLIER * speed
 
 func _process (delta):
-	if multiplayer.is_server():
+	if not multiplayer.is_server():
 		last_fire_time += delta
 		
 		if is_attacking and last_fire_time >= 1 / fire_rate:
@@ -196,6 +238,40 @@ func _on_death():
 	if multiplayer.is_server():
 		attack_to(Vector2.ZERO)
 		walk_to(Vector2.ZERO)
+	
+		if len(drop_data) > 0:
+			var dropped_items = []
+			
+			for item_drop in drop_data:
+				var min_drop = item_drop.min_possible_drop_amount
+				var max_drop = item_drop.max_possible_drop_amount
+				
+				var item = item_drop.item.instantiate()
+				item.quantity = 0
+				
+				for i in range(min_drop, max_drop + 1):
+					if randf() * 100 <= item_drop.drop_chance:
+						item.quantity += 1
+				
+				if item.quantity > 0:
+					dropped_items.push_back(item)
+
+			var total_chests = ceili(len(dropped_items) / 15.0) # divide into chest size
+			
+			for i in range(total_chests):
+				var offset = Vector2(randf() * 8, randf() * 8 + 5) if i > 0 else Vector2(0, 5)
+				
+				var chest = chest_scn.instantiate()
+				chest.type = floori(randf() * 4)
+				chest.position = position + offset
+				
+				var start = 15 * i
+				var stop = min(start + 15, len(dropped_items))
+				
+				for j in range(start, stop):
+					chest.set_slot(j % 15, dropped_items[j])
+				
+				get_parent().add_child(chest)
 	
 	if despawn_on_death:
 		get_tree().create_timer(ENTITY_DESPAWN_DELAY).timeout.connect(queue_free)
