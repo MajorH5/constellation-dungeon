@@ -18,6 +18,10 @@ config/features=PackedStringArray("4.2", "Forward Plus")
 run/flush_stdout_on_print=true
 config/icon="res://addons/jam_launch/assets/star-jar-outlined_128x128.png"
 
+[autoload]
+
+Global="*res://Global.gd"
+
 [debug]
 
 gdscript/warnings/exclude_addons=false

@@ -64,55 +64,26 @@ points = PackedVector2Array(852, 493, 775, 578)
 position = Vector2(-18, 29)
 points = PackedVector2Array(674, 603, 776, 574)
 
-[node name="btn_base" type="Button" parent="."]
-modulate = Color(0.894922, 0.894922, 0.894922, 1)
-layout_mode = 0
-offset_left = 116.0
-offset_top = 293.0
-offset_right = 168.0
-offset_bottom = 343.0
-
-[node name="StartingNode" type="Sprite2D" parent="btn_base"]
-position = Vector2(26, 24)
+[node name="StartingNode" type="Sprite2D" parent="."]
+position = Vector2(142, 317)
 texture = ExtResource("1_5yep2")
 region_enabled = true
 region_rect = Rect2(180, 90, 90, 90)
 
-[node name="btn_speed1" type="Button" parent="."]
-modulate = Color(0.894922, 0.894922, 0.894922, 1)
-offset_left = 308.0
-offset_top = 318.0
-offset_right = 360.0
-offset_bottom = 368.0
-
-[node name="Speed_1" type="Sprite2D" parent="btn_speed1"]
-position = Vector2(26, 23)
+[node name="Speed_1" type="Sprite2D" parent="."]
+position = Vector2(334, 341)
 texture = ExtResource("1_5yep2")
 region_enabled = true
 region_rect = Rect2(180, 90, 90, 90)
 
-[node name="btn_health1" type="Button" parent="."]
-modulate = Color(0.894922, 0.894922, 0.894922, 1)
-offset_left = 499.0
-offset_top = 381.0
-offset_right = 551.0
-offset_bottom = 431.0
-
-[node name="Health_1" type="Sprite2D" parent="btn_health1"]
-position = Vector2(27, 24)
+[node name="Health_1" type="Sprite2D" parent="."]
+position = Vector2(526, 405)
 texture = ExtResource("1_5yep2")
 region_enabled = true
 region_rect = Rect2(180, 90, 90, 90)
 
-[node name="btn_attack1" type="Button" parent="."]
-modulate = Color(0.894922, 0.894922, 0.894922, 1)
-offset_left = 720.0
-offset_top = 382.0
-offset_right = 782.0
-offset_bottom = 445.0
-
-[node name="Attack_1" type="Sprite2D" parent="btn_attack1"]
-position = Vector2(30, 31)
+[node name="Attack_1" type="Sprite2D" parent="."]
+position = Vector2(750, 413)
 texture = ExtResource("1_5yep2")
 region_enabled = true
 region_rect = Rect2(270, 90, 90, 90)
@@ -204,10 +175,10 @@ text = " Health I"
 
 [node name="txt_Attack1" type="TextEdit" parent="."]
 layout_mode = 0
-offset_left = 611.0
-offset_top = 455.0
-offset_right = 725.0
-offset_bottom = 498.0
+offset_left = 619.0
+offset_top = 438.0
+offset_right = 733.0
+offset_bottom = 481.0
 theme_override_font_sizes/font_size = 25
 text = "Attack I"
 
@@ -312,9 +283,9 @@ text = "Ascendency"
 
 [node name="txt_Andromeda" type="TextEdit" parent="."]
 layout_mode = 0
-offset_left = 52.0
-offset_top = 604.0
-offset_right = 308.0
-offset_bottom = 668.0
+offset_left = 77.0
+offset_top = 580.0
+offset_right = 333.0
+offset_bottom = 644.0
 theme_override_font_sizes/font_size = 40
 text = "Andromeda"
