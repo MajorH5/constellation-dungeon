@@ -8,7 +8,27 @@ enum {
 	SILVER_BOW,
 	GOLD_BOW,
 	WOODEN_HELMET, WOODEN_CHESTPLATE,
-	WOODEN_LEGGINGS, WOODEN_BOOTS
+	WOODEN_LEGGINGS, WOODEN_BOOTS,
+	
+	AMETHYST, 
+	CHEESE, 
+	GOLD_RING, 
+	SILVER_BLOOD_BOURNE, 
+	WOOD_OPAL, 
+	DEMON_HELMET, 
+	FLESH_PLATE, 
+	GOLD_HELMET, 
+	IRON_CHESTPLATE, 
+	IRON_HELMET, 
+	SKULLMET, 
+	STONE_CHESTPLATE, 
+	WOOD, 
+	IRON, 
+	DIAMOND_LEGGINGS, 
+	GOLD_LEGGINGS, 
+	JEANS, 
+	SILVER_LEGGINGS,
+	GOLD_CHESTPLATE
 }
 
 static var registry = {
@@ -20,7 +40,27 @@ static var registry = {
 	WOODEN_HELMET: preload("res://items/armors/WoodenHelmet.tscn"),
 	WOODEN_CHESTPLATE: preload("res://items/armors/WoodenChestplate.tscn"),
 	WOODEN_LEGGINGS: preload("res://items/armors/WoodenLeggings.tscn"),
-	WOODEN_BOOTS: preload("res://items/armors/WoodenBoots.tscn")
+	WOODEN_BOOTS: preload("res://items/armors/WoodenBoots.tscn"),
+	
+	AMETHYST: preload("res://items/accessories/Amethyst.tscn"),
+	CHEESE: preload("res://items/accessories/Cheese.tscn"),
+	GOLD_RING: preload("res://items/accessories/GoldRing.tscn"),
+	SILVER_BLOOD_BOURNE: preload("res://items/accessories/SilverBloodBourne.tscn"),
+	WOOD_OPAL: preload("res://items/accessories/WoodOpal.tscn"),
+	DEMON_HELMET: preload("res://items/armors/DemonHelmet.tscn"),
+	FLESH_PLATE: preload("res://items/armors/FleshPlate.tscn"),
+	GOLD_HELMET: preload("res://items/armors/GoldHelmet.tscn"),
+	IRON_CHESTPLATE: preload("res://items/armors/IronChestplate.tscn"),
+	GOLD_CHESTPLATE: preload("res://items/armors/GoldChestplate.tscn"),
+	IRON_HELMET: preload("res://items/armors/IronHelmet.tscn"),
+	SKULLMET: preload("res://items/armors/Skullmet.tscn"),
+	STONE_CHESTPLATE: preload("res://items/armors/StoneChestplate.tscn"),
+	WOOD: preload("res://items/resources/Wood.tscn"),
+	IRON: preload("res://items/resources/Iron.tscn"),
+	DIAMOND_LEGGINGS: preload("res://items/leggings/DiamondLeggings.tscn"),
+	GOLD_LEGGINGS: preload("res://items/leggings/GoldLeggings.tscn"),
+	JEANS: preload("res://items/leggings/Jeans.tscn"),
+	SILVER_LEGGINGS: preload("res://items/leggings/SilverLeggings.tscn")
 }
 
 static func get_id (item: Item) -> int:

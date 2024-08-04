@@ -5,7 +5,7 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2o21o"]
 atlas = ExtResource("2_2i1hc")
-region = Rect2(107, 18, 60, 59)
+region = Rect2(90, 0, 90, 90)
 
 [node name="SilverLeggings" type="Node2D"]
 script = ExtResource("1_mivh4")

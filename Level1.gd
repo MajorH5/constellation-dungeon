@@ -5,7 +5,7 @@ var player_scn = preload("res://entities/friendlies/Player.tscn")
 
 var last_enemy_spawn = 3 # seconds
 var enemy_spawn_rate = 2 # seconds
-var max_enemies = 10
+var max_enemies = 40
 @onready var dungeon = $Dungeon
 var dungeon_generated = false
 
@@ -37,7 +37,66 @@ func spawn_player(pid: int, player_name: String):
 	player.set_slot_item(
 		Item.SlotType.QUICK_SWAP,
 		Item.SLOT_HELMET,
-		ItemLookup.get_item(ItemLookup.WOODEN_HELMET),
+		ItemLookup.get_item([
+			ItemLookup.WOODEN_HELMET,
+			ItemLookup.IRON_HELMET,
+			ItemLookup.GOLD_HELMET,
+			ItemLookup.DEMON_HELMET,
+			ItemLookup.SKULLMET
+			
+		][randi_range(0, 4)]),
+		1
+	)
+	
+	player.set_slot_item(
+		Item.SlotType.QUICK_SWAP,
+		Item.SLOT_CHESTPLATE,
+		ItemLookup.get_item([
+			ItemLookup.WOODEN_CHESTPLATE,
+			ItemLookup.IRON_CHESTPLATE,
+			ItemLookup.STONE_CHESTPLATE,
+			ItemLookup.FLESH_PLATE,
+			ItemLookup.GOLD_CHESTPLATE
+			
+		][randi_range(0, 4)]),
+		1
+	)
+	
+	player.set_slot_item(
+		Item.SlotType.QUICK_SWAP,
+		Item.SLOT_LEGGINGS,
+		ItemLookup.get_item([
+			ItemLookup.GOLD_LEGGINGS,
+			ItemLookup.SILVER_LEGGINGS,
+			ItemLookup.WOODEN_LEGGINGS,
+			ItemLookup.DIAMOND_LEGGINGS,
+			ItemLookup.JEANS
+			
+		][randi_range(0, 4)]),
+		1
+	)
+	
+	player.set_slot_item(
+		Item.SlotType.QUICK_SWAP,
+		Item.SLOT_BOOTS,
+		ItemLookup.get_item([
+			ItemLookup.WOODEN_BOOTS,
+			
+		][randi_range(0, 0)]),
+		1
+	)
+	
+	player.set_slot_item(
+		Item.SlotType.QUICK_SWAP,
+		Item.SLOT_ACCESSORY,
+		ItemLookup.get_item([
+			ItemLookup.AMETHYST,
+			ItemLookup.CHEESE,
+			ItemLookup.GOLD_RING,
+			ItemLookup.SILVER_BLOOD_BOURNE,
+			ItemLookup.WOOD_OPAL
+			
+		][randi_range(0, 4)]),
 		1
 	)
 	

@@ -5,7 +5,7 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bgeb7"]
 atlas = ExtResource("2_q7cvp")
-region = Rect2(104, 104, 72, 64)
+region = Rect2(90, 90, 90, 90)
 
 [node name="DiamondLeggings" type="Node2D"]
 script = ExtResource("1_kdenn")

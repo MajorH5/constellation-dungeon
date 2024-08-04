@@ -268,9 +268,11 @@ func player_input():
 					0: level.equip_weapon.rpc_id(1, ItemLookup.GOD_SWORD)
 					1: level.equip_weapon.rpc_id(1, ItemLookup.DAGGER)
 					2: level.equip_weapon.rpc_id(1, ItemLookup.BOW)
-				
+					3: level.equip_weapon.rpc_id(1, ItemLookup.SILVER_BOW)
+					4: level.equip_weapon.rpc_id(1, ItemLookup.GOLD_BOW)
+					
 				swap_time = 0
-				DEV_item_index = (DEV_item_index + 1) % 3
+				DEV_item_index = (DEV_item_index + 1) % 5
 			
 			if hud.backpack.is_open():
 				hud.backpack.close()
