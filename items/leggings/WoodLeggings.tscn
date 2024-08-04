@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://c6cuvdjokih7b"]
+
+[ext_resource type="Script" path="res://items/armors/Armor.gd" id="1_gjr7r"]
+[ext_resource type="Texture2D" uid="uid://dyvoe02y8ctkw" path="res://assets/images/items/items_leggings_16x16_rendered.png" id="2_43e4y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_30ss0"]
+atlas = ExtResource("2_43e4y")
+region = Rect2(15, 15, 65, 64)
+
+[node name="WoodLeggings" type="Node2D"]
+script = ExtResource("1_gjr7r")
+texture = SubResource("AtlasTexture_30ss0")
+item_name = "Wooden Leggings"
+item_description = "Wooden Leggings"
