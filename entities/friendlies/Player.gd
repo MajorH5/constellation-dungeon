@@ -20,6 +20,13 @@ var swap_time: float = 0
 var quick_swaps: Array[Item] = [null, null, null, null, null, null]
 var satchel = {}
 
+var skill_unlocks = {"Base": true,
+		"Speed1": false, "Speed2": false, "Speed3": false,
+		"Health1": false, "Health2": false, "Health3": false,
+		"Attack1": false, "Attack2": false, "Attack3": false,
+		"Radiant": false, "Restoration": false, "Reaper": false, "Icarus": false,
+		"Ascendent": false}
+
 @rpc("any_peer")
 func intial_state():
 	# its okay to let other clients call this
