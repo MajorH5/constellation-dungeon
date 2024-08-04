@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://df380tar5l5bd"]
+
+[ext_resource type="Script" path="res://dungeon_generation/maps/TestRoom.gd" id="1_ng63a"]
+
+[node name="TileMap" type="TileMap"]
+format = 2
+script = ExtResource("1_ng63a")

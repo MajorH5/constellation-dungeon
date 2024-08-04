@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://ck5xghm6lhg75"]
+
+[ext_resource type="Script" path="res://items/accessories/Accessory.gd" id="1_kcomq"]
+[ext_resource type="Texture2D" uid="uid://w66u1upjiqtj" path="res://assets/images/items/items_accessory_16x16_rendered.png" id="2_20mcw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w5tvm"]
+atlas = ExtResource("2_20mcw")
+region = Rect2(0, 90, 90, 90)
+
+[node name="Amethyst" type="Node2D"]
+script = ExtResource("1_kcomq")
+texture = SubResource("AtlasTexture_w5tvm")
+item_name = "Amethyst"
+item_description = "A deep purple amethyst magically fused to a strong rope."

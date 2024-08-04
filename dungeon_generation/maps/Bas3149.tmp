@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cn6g1ew703nh"]
+
+[ext_resource type="Script" path="res://dungeon_generation/maps/BasicRoom.gd" id="1_iy4vp"]
+
+[node name="TileMap" type="TileMap"]
+format = 2
+script = ExtResource("1_iy4vp")

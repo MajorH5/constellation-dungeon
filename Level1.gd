@@ -6,12 +6,23 @@ var player_scn = preload("res://entities/friendlies/Player.tscn")
 var last_enemy_spawn = 3 # seconds
 var enemy_spawn_rate = 2 # seconds
 var max_enemies = 10
+@onready var dungeon = $Dungeon
+var dungeon_generated = false
 
-func spawn_player(pid: int, player_name: String):	
+func spawn_player(pid: int, player_name: String):
+	if multiplayer.is_server() and not dungeon_generated:
+		dungeon.seed = floor(randf() * 9999999)
+		dungeon.rng.set_seed(dungeon.seed)
+		dungeon.generate()
+		dungeon_generated = true
+	
+	if multiplayer.is_server():
+		dungeon.fix_client.rpc_id(pid, dungeon.seed)
+	
 	var player: Player = player_scn.instantiate()
 	player.owner_id = pid
 	player.player_name = player_name
-	player.position = $SpawnPoints.get_children().pick_random().position
+	player.position = dungeon.get_player_spawn_point()
 	player.server_position = player.position
 	player.name = str(pid)
 	$Players.add_child(player, true)
@@ -89,6 +100,15 @@ func _process(delta):
 			scene = "res://entities/hostiles/BadOmen.tscn"
 		
 		var enemy = load(scene).instantiate()
-		enemy.position = $SpawnPoints.get_children().pick_random().position
+		enemy.position = dungeon.get_player_spawn_point()
 		$Enemies.add_child(enemy, true)
 		last_enemy_spawn = 0
+		
+		for x in range(dungeon.get_used_rect().size.x):
+			for y in range(dungeon.get_used_rect().size.y):
+				var atlas_coords = dungeon.get_cell_atlas_coords(0, Vector2i(x, y))
+				
+				if atlas_coords == Vector2i(1, 0) and randf() < 0.0069420:
+					var rand_enemy = load(scene).instantiate()
+					rand_enemy.position = Vector2(x, y) * 16
+					$Enemies.add_child(rand_enemy, true)
