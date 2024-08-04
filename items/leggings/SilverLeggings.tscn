@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://wmb4lr5pu3p6"]
+
+[ext_resource type="Script" path="res://items/armors/Armor.gd" id="1_mivh4"]
+[ext_resource type="Texture2D" uid="uid://dyvoe02y8ctkw" path="res://assets/images/items/items_leggings_16x16_rendered.png" id="2_2i1hc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2o21o"]
+atlas = ExtResource("2_2i1hc")
+region = Rect2(107, 18, 60, 59)
+
+[node name="SilverLeggings" type="Node2D"]
+script = ExtResource("1_mivh4")
+texture = SubResource("AtlasTexture_2o21o")
+item_name = "Silver leggings"
+item_description = "Leggings made from silver
+"

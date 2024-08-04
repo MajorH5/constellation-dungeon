@@ -28,9 +28,9 @@ func _on_menu_selection(id: int):
 
 func _on_jam_connect_local_player_joining():
 	$CanvasLayer.visible = true
+	$CanvasLayer2.visible = false
 
 func _on_jam_connect_local_player_left():
 	$Level1.reset()
 	$CanvasLayer.visible = false
-	$TitleZone/TitleCam.make_current()
 	

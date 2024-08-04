@@ -1,8 +1,8 @@
 class_name Armor
 extends Item
 
-@export var defense: int = 0
-@export var speed: int = 0
+@export var defense: int = 10
+@export var speed: int = 5
 
 func get_descriptor() -> String:
 	var item_desc = super.get_descriptor()

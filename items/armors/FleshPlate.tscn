@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://d3q4acvl8to5j"]
+
+[ext_resource type="Script" path="res://items/armors/Armor.gd" id="1_edbne"]
+[ext_resource type="Texture2D" uid="uid://c86bshl5e4j6u" path="res://assets/images/items/items_chestplate_16x16_rendered.png" id="2_ker5m"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ytye0"]
+atlas = ExtResource("2_ker5m")
+region = Rect2(0, 90, 90, 90)
+
+[node name="FleshPlate" type="Node2D"]
+script = ExtResource("1_edbne")
+defense = 1
+texture = SubResource("AtlasTexture_ytye0")
+item_name = "Flesh Plate"
+item_description = "A warm writhing mass of flesh and bones which proves surprisingly well against offensive attacks."

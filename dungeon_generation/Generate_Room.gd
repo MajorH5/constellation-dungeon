@@ -1,11 +1,10 @@
 #Author: Jacob
+class_name RoomGenerator
 extends Node2D
 var rng = RandomNumberGenerator.new()
 
 #Game parameters
 #Change to null if you want random gameWidth and gameHeight for variation
-const gameWidth = 20
-const gameHeight = 20
 const tileSize = 1
 
 #Cave generation parameters
@@ -16,9 +15,9 @@ const birthLimit = 4
 const simulationNum = 30
 
 #Board parameters
-const boardWidth = int(gameWidth / tileSize)
-const boardHeight = int(gameHeight / tileSize)
-var board = zeros(boardWidth, boardHeight)
+var boardWidth = 0
+var boardHeight = 0
+var board = zeros(0, 0)
 
 
 #Makes a 2d array with all 0's
