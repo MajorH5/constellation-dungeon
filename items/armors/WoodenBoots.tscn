@@ -11,5 +11,4 @@ region = Rect2(0, 0, 90, 90)
 script = ExtResource("1_loyk7")
 defense = 1
 texture = SubResource("AtlasTexture_gy7qj")
-item_name = "Wooden Leggings"
-item_description = "A restrictive stiff set of leggings made from wood."
+item_name = "Wooden Boots"

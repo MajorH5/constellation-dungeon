@@ -12,4 +12,4 @@ script = ExtResource("1_thynm")
 defense = 1
 texture = SubResource("AtlasTexture_gqshb")
 item_name = "Stone Chestplate"
-item_description = "A large and extremely heave rock that has been meticulously chiseled into an armor piece. It crumbles upon your touch. "
+item_description = "A large and extremely heavy rock that has been meticulously chiseled into an armor piece. It crumbles upon your touch. "
