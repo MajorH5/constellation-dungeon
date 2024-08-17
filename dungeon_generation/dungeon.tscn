@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://oukicbbhj3g4"]
+[gd_scene load_steps=7 format=3 uid="uid://dlqjpsjsgox46"]
 
 [ext_resource type="Script" path="res://dungeon_generation/Dungeon.gd" id="1_imton"]
 [ext_resource type="TileSet" uid="uid://pllwqy2w0tfc" path="res://assets/resources/DefaultTileset.tres" id="1_yelnv"]
