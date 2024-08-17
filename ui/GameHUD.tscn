@@ -1,9 +1,11 @@
-[gd_scene load_steps=20 format=3 uid="uid://b1xityx8ekvxp"]
+[gd_scene load_steps=22 format=3 uid="uid://b1xityx8ekvxp"]
 
 [ext_resource type="Script" path="res://ui/GameHUD.gd" id="1_7ivup"]
 [ext_resource type="Texture2D" uid="uid://b286g0wqr5i4q" path="res://assets/images/ui/icons/icon_satchel_16x16_rendered.png" id="1_naos6"]
 [ext_resource type="Texture2D" uid="uid://cndwc6ortvvmo" path="res://assets/images/ui/icons/icon_skilltree_16x16_rendered.png" id="2_n3gq2"]
 [ext_resource type="Script" path="res://ui/TextureButton.gd" id="2_qb2py"]
+[ext_resource type="PackedScene" uid="uid://d1kb6tllr0h0j" path="res://ui/skill_tree.tscn" id="3_dx4o2"]
+[ext_resource type="Script" path="res://ui/skill_tree.gd" id="4_6tx5h"]
 [ext_resource type="Texture2D" uid="uid://bjgl5qnafojwh" path="res://assets/images/ui/icons/icon_crafting_16x16_rendered.png" id="4_doweq"]
 [ext_resource type="PackedScene" uid="uid://bl31bdg224lpp" path="res://ui/BackpackWindow.tscn" id="5_feeal"]
 [ext_resource type="Texture2D" uid="uid://lmt8kvn4m6to" path="res://assets/images/ui/icons/ui_icons_16x16_rendered.png" id="6_ebci7"]
@@ -67,6 +69,10 @@ text = " "
 
 [node name="BackpackWindow" parent="." instance=ExtResource("5_feeal")]
 layout_mode = 1
+
+[node name="Skill Tree" parent="." instance=ExtResource("3_dx4o2")]
+visible = false
+script = ExtResource("4_6tx5h")
 
 [node name="MenuOptions" type="Control" parent="."]
 z_index = 2

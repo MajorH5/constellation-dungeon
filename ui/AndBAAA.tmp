@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://ge5cxxox7nl2"]
+[gd_scene load_steps=4 format=3 uid="uid://ge5cxxox7nl2"]
 
 [ext_resource type="Texture2D" uid="uid://lmt8kvn4m6to" path="res://assets/images/ui/icons/ui_icons_16x16_rendered.png" id="1_5yep2"]
 [ext_resource type="Script" path="res://ui/Andromeda_SkillTree.gd" id="1_v0xtl"]
 [ext_resource type="Script" path="res://ui/buttons/btn_attack_1.gd" id="2_eit32"]
-[ext_resource type="Script" path="res://ui/btn_restoration.gd" id="4_6l5cm"]
 
 [node name="AndromedaSkillTree" type="Control"]
 layout_mode = 3
@@ -186,7 +185,6 @@ offset_left = -224.0
 offset_top = -17.0
 offset_right = -153.0
 offset_bottom = 53.0
-script = ExtResource("4_6l5cm")
 
 [node name="Restoration" type="Sprite2D" parent="btn_attack_1/btn_speed_1/btn_health_1/btn_health_2/btn_health_3/btn_restoration"]
 position = Vector2(35, 34)
