@@ -70,7 +70,7 @@ text = " "
 [node name="BackpackWindow" parent="." instance=ExtResource("5_feeal")]
 layout_mode = 1
 
-[node name="Skill Tree" parent="." instance=ExtResource("3_dx4o2")]
+[node name="SkillTreeWindow" parent="." instance=ExtResource("3_dx4o2")]
 visible = false
 script = ExtResource("4_6tx5h")
 
