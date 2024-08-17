@@ -7,8 +7,11 @@
 [node name="Skill Tree" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = -5.0
+offset_top = -8.0
+offset_right = -5.0
+offset_bottom = -8.0
+pivot_offset = Vector2(410, 305)
 
 [node name="Start_to_Speed1" type="Line2D" parent="."]
 position = Vector2(-18, 29)

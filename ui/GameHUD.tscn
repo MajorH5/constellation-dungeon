@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b286g0wqr5i4q" path="res://assets/images/ui/icons/icon_satchel_16x16_rendered.png" id="1_naos6"]
 [ext_resource type="Texture2D" uid="uid://cndwc6ortvvmo" path="res://assets/images/ui/icons/icon_skilltree_16x16_rendered.png" id="2_n3gq2"]
 [ext_resource type="Script" path="res://ui/TextureButton.gd" id="2_qb2py"]
-[ext_resource type="PackedScene" uid="uid://d1kb6tllr0h0j" path="res://ui/skill_tree.tscn" id="3_dx4o2"]
+[ext_resource type="PackedScene" uid="uid://c6xt3a4mdirkf" path="res://ui/skill_tree.tscn" id="3_dx4o2"]
 [ext_resource type="Script" path="res://ui/skill_tree.gd" id="4_6tx5h"]
 [ext_resource type="Texture2D" uid="uid://bjgl5qnafojwh" path="res://assets/images/ui/icons/icon_crafting_16x16_rendered.png" id="4_doweq"]
 [ext_resource type="PackedScene" uid="uid://bl31bdg224lpp" path="res://ui/BackpackWindow.tscn" id="5_feeal"]
@@ -72,6 +72,9 @@ layout_mode = 1
 
 [node name="SkillTreeWindow" parent="." instance=ExtResource("3_dx4o2")]
 visible = false
+offset_top = 1.0
+offset_right = 1278.0
+offset_bottom = 714.0
 script = ExtResource("4_6tx5h")
 
 [node name="MenuOptions" type="Control" parent="."]
