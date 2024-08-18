@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://bdy8chu6dv2ug"]
+[gd_scene load_steps=38 format=3 uid="uid://bdy8chu6dv2ug"]
 
 [ext_resource type="Script" path="res://entities/friendlies/Player.gd" id="1_xni1k"]
 [ext_resource type="Texture2D" uid="uid://1ldu241nr0ii" path="res://assets/images/entities/characters/character_andromeda_16x16_rendered.png" id="2_c4v5n"]
@@ -256,6 +256,10 @@ animations = [{
 [sub_resource type="Theme" id="Theme_y2b6f"]
 default_font_size = 100
 
+[sub_resource type="Theme" id="Theme_xo4nf"]
+default_font_size = 100
+Label/colors/font_color = Color(1, 0.843137, 0, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iomej"]
 bg_color = Color(0, 0, 0, 0.34902)
 border_width_left = 10
@@ -316,6 +320,25 @@ scale = Vector2(0.035, 0.035)
 theme = SubResource("Theme_y2b6f")
 text = "
 "
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Label" type="Label" parent="."]
+z_index = 2
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -42.0
+offset_top = 9.0
+offset_right = 2358.0
+offset_bottom = 286.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.035, 0.035)
+theme = SubResource("Theme_xo4nf")
+text = "Lvl 3"
 horizontal_alignment = 1
 autowrap_mode = 2
 

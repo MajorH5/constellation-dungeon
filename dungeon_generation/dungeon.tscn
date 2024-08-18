@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dlqjpsjsgox46"]
+[gd_scene load_steps=7 format=3 uid="uid://oukicbbhj3g4"]
 
 [ext_resource type="Script" path="res://dungeon_generation/Dungeon.gd" id="1_imton"]
 [ext_resource type="TileSet" uid="uid://pllwqy2w0tfc" path="res://assets/resources/DefaultTileset.tres" id="1_yelnv"]
@@ -14,7 +14,7 @@ world_size = Vector2(20, 20)
 total_rooms = 9
 max_travel_distance = 1.0
 main_rooms = 3
-base_room_size = Vector2(10, 10)
+base_room_size = Vector2(20, 20)
 room_size_variation = Vector2(10, 10)
 room_spacing = Vector2(3, 3)
 boss_room_scalar = 2.5

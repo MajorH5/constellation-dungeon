@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://addons/jam_launch/core/JamConnect.gd" id="3_21l01"]
 [ext_resource type="PackedScene" uid="uid://bp045ebtvh6js" path="res://addons/jam_launch/ui/ChatConsole.tscn" id="3_arn8j"]
 [ext_resource type="PackedScene" uid="uid://b1xityx8ekvxp" path="res://ui/GameHUD.tscn" id="5_brxlw"]
-[ext_resource type="PackedScene" path="res://ui/TitleScreen.tscn" id="6_8pyc0"]
+[ext_resource type="PackedScene" uid="uid://dtrwaiufj3hes" path="res://ui/TitleScreen.tscn" id="6_8pyc0"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_tno48")

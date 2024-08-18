@@ -13,6 +13,8 @@ extends Control
 
 @onready var backpack = $BackpackWindow
 
+var health_tween = null
+
 var quick_swaps: Array[Item] = [null, null, null, null, null, null]
 
 func _ready():
@@ -59,9 +61,18 @@ func update_quick_swap_description(slot_id: int):
 		label.visible = false
 
 func set_health (health: int, max_health: int):
+	if health_tween != null:
+		health_tween.stop()
+	
 	health_label.text = "HP: %s / %s" % [health, max_health]
+	
 	var percentage = 1.0 * health / max_health
-	health_progress.size = Vector2(percentage * health_bar.size.x, health_bar.size.y)
+	var goal_size = Vector2(percentage * health_bar.size.x, health_bar.size.y)
+	
+	health_tween = create_tween()
+	health_tween.set_trans(Tween.TRANS_EXPO)
+	health_tween.set_ease(Tween.EASE_OUT)
+	health_tween.tween_property(health_progress, "size", goal_size, 0.65)
 
 func set_quick_swap_item (slot_id: int, item: Item):
 	var slot = get_slot_from_constant(slot_id)
