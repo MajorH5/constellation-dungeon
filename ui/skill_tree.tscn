@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://c6xt3a4mdirkf"]
+[gd_scene load_steps=5 format=3 uid="uid://c6xt3a4mdirkf"]
 
+[ext_resource type="Script" path="res://ui/skill_tree.gd" id="1_afkki"]
 [ext_resource type="Script" path="res://ui/buttons/btn_attack_1.gd" id="1_rh58y"]
 [ext_resource type="Texture2D" uid="uid://lmt8kvn4m6to" path="res://assets/images/ui/icons/ui_icons_16x16_rendered.png" id="2_6jftt"]
 [ext_resource type="Script" path="res://ui/btn_restoration.gd" id="3_4e6ve"]
@@ -12,6 +13,7 @@ offset_top = -8.0
 offset_right = -5.0
 offset_bottom = -8.0
 pivot_offset = Vector2(410, 305)
+script = ExtResource("1_afkki")
 
 [node name="Start_to_Speed1" type="Line2D" parent="."]
 position = Vector2(-18, 29)

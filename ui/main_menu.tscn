@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://iggl02riwlti"]
+
+[node name="Main Menu" type="Control"]
+modulate = Color(0.881937, 0.881937, 0.881937, 1)
+self_modulate = Color(0.597176, 0.597176, 0.597176, 1)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InventoryBTN" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.451
+anchor_top = 0.458
+anchor_right = 0.451
+anchor_bottom = 0.458
+offset_left = -513.28
+offset_top = 182.24
+offset_right = -257.28
+offset_bottom = 222.24
+text = "Inventory"
+
+[node name="SkillTreeBTN" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.451
+anchor_top = 0.458
+anchor_right = 0.451
+anchor_bottom = 0.458
+offset_left = -513.28
+offset_top = 246.24
+offset_right = -257.28
+offset_bottom = 286.24
+text = "Skill Tree"
+
+[node name="SettingsBTN" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.451
+anchor_top = 0.458
+anchor_right = 0.451
+anchor_bottom = 0.458
+offset_left = -513.28
+offset_top = 310.24
+offset_right = -257.28
+offset_bottom = 350.24
+text = "Settings"
+
+[node name="ExitBTN" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.451
+anchor_top = 0.458
+anchor_right = 0.451
+anchor_bottom = 0.458
+offset_left = -513.28
+offset_top = -265.76
+offset_right = -449.28
+offset_bottom = -225.76
+text = "X"
