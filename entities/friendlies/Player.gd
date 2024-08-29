@@ -3,7 +3,7 @@
 class_name Player
 extends Entity
 
-const experience_text_scn = preload("res://ui/ExperienceText.tscn")
+const skill_points_text_scn = preload("res://ui/SkillPointsText.tscn")
 
 @export var controls_locked: bool = false
 
@@ -21,11 +21,11 @@ var swap_time: float = 0
 
 var class_type = "Andromeda"
 
-var exp = 0:
+var skp = 0:
 	set(val):
-		exp = val
+		skp = val
 		if hud != null:
-			hud.set_experience(val, ExperienceCalculator.max_for_level(level))
+			hud.set_skill_points(val, SkillPointsCalculator.max_for_level(level))
 var level = 0:
 	set(val):
 		level = val
@@ -38,26 +38,26 @@ var level = 0:
 var quick_swaps: Array[Item] = [null, null, null, null, null, null]
 var satchel = {}
 
-func earn_exp (amount: int):
-	var max_exp = ExperienceCalculator.max_for_level(level)
-	var current_exp = exp + amount
+func earn_skp (amount: int):
+	var max_skp = SkillPointsCalculator.max_for_level(level)
+	var current_skp = skp + amount
 	
-	if current_exp >= max_exp:
-		var excess = current_exp - max_exp
+	if current_skp >= max_skp:
+		var excess = current_skp - max_skp
 		
 		level_up()
-		earn_exp(excess) # this is key, recurse with extra exp untill all is spent
+		earn_skp(excess) # this is key, recurse with extra skp until all is spent
 	else:
-		exp = current_exp
+		skp = current_skp
 	
 	if multiplayer.is_server():
-		var experience_text = experience_text_scn.instantiate()
-		experience_text.position = Vector2(experience_text.position.x, -20)
-		experience_text.text = "+%d EXP" % amount
-		add_child(experience_text)
+		var sp_text = skill_points_text_scn.instantiate()
+		sp_text.position = Vector2(sp_text.position.x, -20)
+		sp_text.text = "+%d SKP" % amount
+		add_child(sp_text)
 
 func level_up():
-	exp = 0
+	skp = 0
 	level += 1
 
 @rpc("any_peer")
@@ -251,7 +251,7 @@ func _ready():
 	if multiplayer.get_unique_id() == owner_id:
 		camera.make_current()
 		hud.set_health(health, max_health)
-		hud.set_experience(exp, ExperienceCalculator.max_for_level(level))
+		hud.set_skill_points(skp, SkillPointsCalculator.max_for_level(level))
 		hud.backpack.set_satchel(satchel)
 	else:
 		nametag.modulate = Color(1, 1, 1, 0.5)

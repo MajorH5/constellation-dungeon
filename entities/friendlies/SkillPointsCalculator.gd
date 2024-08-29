@@ -1,4 +1,4 @@
-class_name ExperienceCalculator
+class_name SkillPointsCalculator
 extends Node
 
 static func max_for_level (level: int):

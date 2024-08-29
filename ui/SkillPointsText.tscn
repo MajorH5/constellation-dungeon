@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://n12f124oidp7"]
 
-[ext_resource type="Script" path="res://ui/DamageText.gd" id="1_3ofnd"]
-[ext_resource type="Script" path="res://addons/jam_launch/core/JamSync.gd" id="2_hcpe7"]
+[ext_resource type="Script" path="res://ui/DamageText.gd" id="1_lcfa8"]
+[ext_resource type="Script" path="res://addons/jam_launch/core/JamSync.gd" id="2_i36co"]
 
 [sub_resource type="Theme" id="Theme_dxm84"]
 default_font_size = 150
@@ -11,16 +11,16 @@ Label/constants/outline_size = 50
 Label/constants/shadow_offset_x = 4
 Label/constants/shadow_offset_y = 4
 
-[node name="ExperienceText" type="Label"]
+[node name="SkillPointsText" type="Label"]
 offset_left = -28.0
 offset_right = 1572.0
 offset_bottom = 205.0
 scale = Vector2(0.035, 0.035)
 theme = SubResource("Theme_dxm84")
 horizontal_alignment = 1
-script = ExtResource("1_3ofnd")
+script = ExtResource("1_lcfa8")
 
 [node name="JamSync" type="Node" parent="."]
-script = ExtResource("2_hcpe7")
+script = ExtResource("2_i36co")
 spawn_properties = Array[String](["position", "text"])
 sync_properties = Array[String](["position", "text"])

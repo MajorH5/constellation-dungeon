@@ -301,7 +301,7 @@ position_smoothing_speed = 8.0
 [node name="JamSync" type="Node" parent="."]
 script = ExtResource("5_pxniy")
 spawn_properties = Array[String](["owner_id", "player_name", "health", "entity_id", "max_health", "controls_locked", "exp", "level"])
-sync_properties = Array[String](["attack_direction", "is_attacking", "health", "entity_id", "max_health", "controls_locked", "server_position", "server_velocity", "exp", "level"])
+sync_properties = Array[String](["attack_direction", "is_attacking", "health", "entity_id", "max_health", "controls_locked", "server_position", "server_velocity", "skp", "level"])
 
 [node name="Nametag" type="Label" parent="."]
 z_index = 2

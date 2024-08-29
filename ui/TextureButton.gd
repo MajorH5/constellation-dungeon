@@ -23,7 +23,8 @@ func _on_mouse_entered():
 		tween = null
 	)
 	
-	hotbar_action.text = name
+	if hotbar_action != null:
+		hotbar_action.text = name
 	tween.play()
 
 
@@ -39,5 +40,16 @@ func _on_mouse_exited():
 		tween = null
 	)
 	
-	hotbar_action.text = ""
+	if hotbar_action != null:
+		hotbar_action.text = ""
 	tween.play()
+
+func _is_pos_in(checkpos:Vector2):
+	var gr=get_global_rect()
+	return checkpos.x>=gr.position.x and checkpos.y>=gr.position.y and checkpos.x<gr.end.x and checkpos.y<gr.end.y
+
+func _input(event):
+	if event is InputEventMouseButton and not _is_pos_in(event.position):
+		release_focus()
+	elif event is InputEventKey:
+		release_focus()

@@ -6,9 +6,9 @@ extends Control
 @onready var health_progress = $Status/HealthBar/Progress
 @onready var health_label = $Status/HealthBar/Health
 
-@onready var experience_bar = $Status/ExperienceBar
-@onready var experience_progress = $Status/ExperienceBar/Progress
-@onready var experience_label = $Status/ExperienceBar/Experience
+@onready var skill_points_bar = $Status/SkillPointsBar
+@onready var skill_points_progress = $Status/SkillPointsBar/Progress
+@onready var skill_points_label = $Status/SkillPointsBar/SkillPoints
 
 @onready var weapon = $QuickSwaps/GridContainer/Weapon
 @onready var helmet = $QuickSwaps/GridContainer/Helmet
@@ -20,7 +20,7 @@ extends Control
 @onready var backpack = $BackpackWindow
 
 var health_tween = null
-var experience_tween = null
+var skill_points_tween = null
 
 var quick_swaps: Array[Item] = [null, null, null, null, null, null]
 
@@ -85,19 +85,19 @@ func set_health (health: int, max_health: int):
 	health_tween.tween_property(health_progress, "size", goal_size, 0.65)
 
 
-func set_experience (experience: int, max_experience: int):
-	if experience_tween != null:
-		experience_tween.stop()
+func set_skill_points (skill_points: int, max_skill_points: int):
+	if skill_points_tween != null:
+		skill_points_tween.stop()
 	
-	experience_label.text = "XP: %s / %s" % [experience, max_experience]
+	skill_points_label.text = "SKP: %s / %s" % [skill_points, max_skill_points]
 	
-	var percentage = 1.0 * experience / max_experience
-	var goal_size = Vector2(percentage * experience_bar.size.x, experience_bar.size.y)
+	var percentage = 1.0 * skill_points / max_skill_points
+	var goal_size = Vector2(percentage * skill_points_bar.size.x, skill_points_bar.size.y)
 	
-	experience_tween = create_tween()
-	experience_tween.set_trans(Tween.TRANS_EXPO)
-	experience_tween.set_ease(Tween.EASE_OUT)
-	experience_tween.tween_property(experience_progress, "size", goal_size, 0.65)
+	skill_points_tween = create_tween()
+	skill_points_tween.set_trans(Tween.TRANS_EXPO)
+	skill_points_tween.set_ease(Tween.EASE_OUT)
+	skill_points_tween.tween_property(skill_points_progress, "size", goal_size, 0.65)
 
 
 func set_quick_swap_item (slot_id: int, item: Item):

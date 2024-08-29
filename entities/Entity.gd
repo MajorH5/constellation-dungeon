@@ -31,8 +31,8 @@ const chest_scn = preload("res://objects/Chest.tscn")
 @export var base_damage: int = 0
 @export var despawn_on_death: bool = true
 @export var drop_data: Array[ItemDropData] = []
-@export var experience_drop_min = 1
-@export var experience_drop_max = 1
+@export var skill_point_drop_min = 1
+@export var skill_point_drop_max = 1
 
 var entity_id: int = -1
 var owner_id: int # unique multiplayer client id or blank if server owned
@@ -279,11 +279,11 @@ func _on_death():
 		get_tree().create_timer(ENTITY_DESPAWN_DELAY).timeout.connect(queue_free)
 		
 	if hostile:
-		var exp_drop = randi_range(experience_drop_min, experience_drop_max)
+		var skp_drop = randi_range(skill_point_drop_min, skill_point_drop_max)
 		var nearby = Players.get_nearby(position)
 		
 		for player in nearby:
-			player.earn_exp(exp_drop)
+			player.earn_skp(skp_drop)
 
 func _enter_tree():
 	if multiplayer.is_server():
