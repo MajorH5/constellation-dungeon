@@ -5,8 +5,8 @@ const TREE_CONTAINER_POS = Vector2(-262, 0)
 
 @onready var tree = $tree
 
-@onready var unlocks = {$btn_attack_1: true,
-		$btn_attack_1/btn_speed_1: false, "Speed2": false, "Speed3": false,
+@onready var unlocks = {"Base": true,
+		"Speed1": false, "Speed2": false, "Speed3": false,
 		"Health1": false, "Health2": false, "Health3": false,
 		"Attack1": false, "Attack2": false, "Attack3": false,
 		"Radiant": false, "Restoration": false, "Reaper": false, "Icarus": false,
