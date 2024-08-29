@@ -300,8 +300,8 @@ position_smoothing_speed = 8.0
 
 [node name="JamSync" type="Node" parent="."]
 script = ExtResource("5_pxniy")
-spawn_properties = Array[String](["owner_id", "player_name", "health", "entity_id", "max_health", "controls_locked"])
-sync_properties = Array[String](["attack_direction", "is_attacking", "health", "entity_id", "max_health", "controls_locked", "server_position", "server_velocity"])
+spawn_properties = Array[String](["owner_id", "player_name", "health", "entity_id", "max_health", "controls_locked", "exp", "level"])
+sync_properties = Array[String](["attack_direction", "is_attacking", "health", "entity_id", "max_health", "controls_locked", "server_position", "server_velocity", "exp", "level"])
 
 [node name="Nametag" type="Label" parent="."]
 z_index = 2
@@ -323,7 +323,7 @@ text = "
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="Label" type="Label" parent="."]
+[node name="LevelText" type="Label" parent="."]
 z_index = 2
 anchors_preset = 7
 anchor_left = 0.5
@@ -338,7 +338,7 @@ grow_horizontal = 2
 grow_vertical = 0
 scale = Vector2(0.035, 0.035)
 theme = SubResource("Theme_xo4nf")
-text = "Lvl 3"
+text = "Lvl 0"
 horizontal_alignment = 1
 autowrap_mode = 2
 

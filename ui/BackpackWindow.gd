@@ -21,8 +21,9 @@ func bind_to_slot(slot: Control):
 	#if multiplayer.is_server():
 		#return
 	
-	slot.gui_input.connect(func (input: InputEvent):
+	var onInput = func (input: InputEvent):
 		if input is InputEventMouseButton and input.button_index == MOUSE_BUTTON_LEFT and input.pressed:
+			print("RAAA", randf())
 			# user just clicked on this slot, are we swapping
 			# or are we making a first selection
 			
@@ -81,23 +82,30 @@ func bind_to_slot(slot: Control):
 					
 					player.swap_slots.rpc_id(1, origin_type, from.get_meta("slot_index"), dest_type, to.get_meta("slot_index"), container_id)
 				
-				get_tree().create_timer(3).timeout.connect(func():
-					set_satchel(satchel_dict)
-					set_container(container_dict)
-				)
+				#get_tree().create_timer(3).timeout.connect(func():
+					#set_satchel(satchel_dict)
+					#set_container(container_dict)
+				#)
 				
 				# finally exit select mode
 				disable_select_mode()
-	)
-	slot.mouse_entered.connect(func ():
+	var onMouseEnter = func ():
 		if currently_selected != null:
 			slot.modulate = Color(1, 1, 1, 1)
-	)
-	slot.mouse_exited.connect(func ():
+	
+	var onMouseExit = func ():
 		if currently_selected != null and slot != currently_selected:
 			slot.modulate = Color(0, 1, 1, 1)
-	)
-
+	
+	var item = slot.get_node("Item")
+	
+	slot.gui_input.connect(onInput)
+	slot.mouse_entered.connect(onMouseEnter)
+	slot.mouse_exited.connect(onMouseExit)
+	
+	#item.gui_input.connect(onInput)
+	#item.mouse_entered.connect(onMouseEnter)
+	#item.mouse_exited.connect(onMouseExit)
 func _ready():
 	for slot in satchel_slots.get_children():
 		bind_to_slot(slot)
@@ -142,17 +150,21 @@ func update_slots (dict, slots, total_size):
 		if dict == null or dict.get(i) == null:
 			var slot = get_slot_by_index(slots, i)
 			slot.get_node("Item").visible = false
+			slot.get_node("Quantity").visible = false
 	
 	if dict == null:
 		return
 	
 	for slot_index in dict:
 		var slot = get_slot_by_index(slots, int(slot_index))
-		var item = dict.get(slot_index)
-		var item_sprite: Sprite2D = slot.get_node("Item")
+		var item: Item = dict.get(slot_index)
+		var item_sprite = slot.get_node("Item")
+		var quantity: RichTextLabel = slot.get_node("Quantity")
 		
 		item_sprite.visible = true
 		item_sprite.texture = item.texture
+		quantity.visible = true
+		quantity.text = str(item.quantity)
 
 func set_satchel(s):
 	satchel_dict = s

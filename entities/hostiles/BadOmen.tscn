@@ -325,6 +325,8 @@ fire_rate = 3.0
 projectile_data = SubResource("Resource_xylgd")
 base_damage = 5
 drop_data = Array[ExtResource("5_t8cl7")]([SubResource("Resource_oa5o1"), SubResource("Resource_o8h6s"), SubResource("Resource_kcxm5"), SubResource("Resource_d3jbs")])
+experience_drop_min = 2
+experience_drop_max = 5
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.2, 0.2)

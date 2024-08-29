@@ -1,8 +1,14 @@
 extends Control
 
+@onready var state_info = $Status/StateInfo
+
 @onready var health_bar = $Status/HealthBar
 @onready var health_progress = $Status/HealthBar/Progress
 @onready var health_label = $Status/HealthBar/Health
+
+@onready var experience_bar = $Status/ExperienceBar
+@onready var experience_progress = $Status/ExperienceBar/Progress
+@onready var experience_label = $Status/ExperienceBar/Experience
 
 @onready var weapon = $QuickSwaps/GridContainer/Weapon
 @onready var helmet = $QuickSwaps/GridContainer/Helmet
@@ -14,6 +20,7 @@ extends Control
 @onready var backpack = $BackpackWindow
 
 var health_tween = null
+var experience_tween = null
 
 var quick_swaps: Array[Item] = [null, null, null, null, null, null]
 
@@ -33,6 +40,9 @@ func _ready():
 		slot.mouse_exited.connect(func ():
 			slot.get_node("NinePatchRect").visible = false
 		)
+
+func update_status (class_type: String, level: int):
+	state_info.text = "%s • [color=gold]Lvl %d[/color]" % [class_type, level]
 
 func get_slot_from_constant (slot: int) -> Control:
 	match slot:
@@ -73,6 +83,22 @@ func set_health (health: int, max_health: int):
 	health_tween.set_trans(Tween.TRANS_EXPO)
 	health_tween.set_ease(Tween.EASE_OUT)
 	health_tween.tween_property(health_progress, "size", goal_size, 0.65)
+
+
+func set_experience (experience: int, max_experience: int):
+	if experience_tween != null:
+		experience_tween.stop()
+	
+	experience_label.text = "XP: %s / %s" % [experience, max_experience]
+	
+	var percentage = 1.0 * experience / max_experience
+	var goal_size = Vector2(percentage * experience_bar.size.x, experience_bar.size.y)
+	
+	experience_tween = create_tween()
+	experience_tween.set_trans(Tween.TRANS_EXPO)
+	experience_tween.set_ease(Tween.EASE_OUT)
+	experience_tween.tween_property(experience_progress, "size", goal_size, 0.65)
+
 
 func set_quick_swap_item (slot_id: int, item: Item):
 	var slot = get_slot_from_constant(slot_id)

@@ -1,12 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bl31bdg224lpp"]
+[gd_scene load_steps=7 format=3 uid="uid://bl31bdg224lpp"]
 
 [ext_resource type="Script" path="res://ui/BackpackWindow.gd" id="1_im65m"]
 [ext_resource type="Texture2D" uid="uid://bwn0b3a5h5s80" path="res://assets/images/ui/ui_backpack.png" id="1_rluui"]
-[ext_resource type="Texture2D" uid="uid://lmt8kvn4m6to" path="res://assets/images/ui/icons/ui_icons_16x16_rendered.png" id="2_trp5h"]
 [ext_resource type="Texture2D" uid="uid://b286g0wqr5i4q" path="res://assets/images/ui/icons/icon_satchel_16x16_rendered.png" id="3_crg6p"]
+[ext_resource type="PackedScene" uid="uid://bikdlrer4yje0" path="res://ui/InventorySlot.tscn" id="3_ir7ef"]
 [ext_resource type="Texture2D" uid="uid://uaec44gr0fie" path="res://assets/images/objects/objects_8x8_rendered.png" id="4_r8frb"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_k514b"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p42xj"]
 atlas = ExtResource("4_r8frb")
@@ -39,7 +37,6 @@ grow_vertical = 2
 texture = ExtResource("1_rluui")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-z_index = -1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -67,342 +64,100 @@ offset_right = 926.0
 offset_bottom = 564.0
 columns = 6
 
-[node name="Control" type="Control" parent="Satchel/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot0" parent="Satchel/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
-metadata/slot_index = 0
 
-[node name="Sprite2D" type="Sprite2D" parent="Satchel/GridContainer/Control"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Satchel/GridContainer/Control"]
-texture = SubResource("AtlasTexture_k514b")
-centered = false
-
-[node name="Control2" type="Control" parent="Satchel/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot1" parent="Satchel/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 1
 
-[node name="Sprite2D" type="Sprite2D" parent="Satchel/GridContainer/Control2"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Satchel/GridContainer/Control2"]
-centered = false
-
-[node name="Control3" type="Control" parent="Satchel/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot2" parent="Satchel/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="Satchel/GridContainer/Control3"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Satchel/GridContainer/Control3"]
-centered = false
-
-[node name="Control4" type="Control" parent="Satchel/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot3" parent="Satchel/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 3
 
-[node name="Sprite2D" type="Sprite2D" parent="Satchel/GridContainer/Control4"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Satchel/GridContainer/Control4"]
-centered = false
-
-[node name="Control5" type="Control" parent="Satchel/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot4" parent="Satchel/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 4
 
-[node name="Sprite2D" type="Sprite2D" parent="Satchel/GridContainer/Control5"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Satchel/GridContainer/Control5"]
-centered = false
-
-[node name="Control6" type="Control" parent="Satchel/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot5" parent="Satchel/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 5
 
-[node name="Sprite2D" type="Sprite2D" parent="Satchel/GridContainer/Control6"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Satchel/GridContainer/Control6"]
-centered = false
-
-[node name="Control7" type="Control" parent="Satchel/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot6" parent="Satchel/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 6
 
-[node name="Sprite2D" type="Sprite2D" parent="Satchel/GridContainer/Control7"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Satchel/GridContainer/Control7"]
-centered = false
-
-[node name="Control8" type="Control" parent="Satchel/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot7" parent="Satchel/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 7
 
-[node name="Sprite2D" type="Sprite2D" parent="Satchel/GridContainer/Control8"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Satchel/GridContainer/Control8"]
-centered = false
-
-[node name="Control9" type="Control" parent="Satchel/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot8" parent="Satchel/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 8
 
-[node name="Sprite2D" type="Sprite2D" parent="Satchel/GridContainer/Control9"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Satchel/GridContainer/Control9"]
-centered = false
-
-[node name="Control10" type="Control" parent="Satchel/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot9" parent="Satchel/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 9
 
-[node name="Sprite2D" type="Sprite2D" parent="Satchel/GridContainer/Control10"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Satchel/GridContainer/Control10"]
-centered = false
-
-[node name="Control11" type="Control" parent="Satchel/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot10" parent="Satchel/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 10
 
-[node name="Sprite2D" type="Sprite2D" parent="Satchel/GridContainer/Control11"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Satchel/GridContainer/Control11"]
-centered = false
-
-[node name="Control12" type="Control" parent="Satchel/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot11" parent="Satchel/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 11
 
-[node name="Sprite2D" type="Sprite2D" parent="Satchel/GridContainer/Control12"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Satchel/GridContainer/Control12"]
-centered = false
-
-[node name="Control13" type="Control" parent="Satchel/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot12" parent="Satchel/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 12
 
-[node name="Sprite2D" type="Sprite2D" parent="Satchel/GridContainer/Control13"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Satchel/GridContainer/Control13"]
-centered = false
-
-[node name="Control14" type="Control" parent="Satchel/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot13" parent="Satchel/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 13
 
-[node name="Sprite2D" type="Sprite2D" parent="Satchel/GridContainer/Control14"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Satchel/GridContainer/Control14"]
-centered = false
-
-[node name="Control15" type="Control" parent="Satchel/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot14" parent="Satchel/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 14
 
-[node name="Sprite2D" type="Sprite2D" parent="Satchel/GridContainer/Control15"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Satchel/GridContainer/Control15"]
-centered = false
-
-[node name="Control16" type="Control" parent="Satchel/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot15" parent="Satchel/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 15
 
-[node name="Sprite2D" type="Sprite2D" parent="Satchel/GridContainer/Control16"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Satchel/GridContainer/Control16"]
-centered = false
-
-[node name="Control17" type="Control" parent="Satchel/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot16" parent="Satchel/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 16
 
-[node name="Sprite2D" type="Sprite2D" parent="Satchel/GridContainer/Control17"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Satchel/GridContainer/Control17"]
-centered = false
-
-[node name="Control18" type="Control" parent="Satchel/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot17" parent="Satchel/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 17
 
-[node name="Sprite2D" type="Sprite2D" parent="Satchel/GridContainer/Control18"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Satchel/GridContainer/Control18"]
-centered = false
-
-[node name="Control19" type="Control" parent="Satchel/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot18" parent="Satchel/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 18
 
-[node name="Sprite2D" type="Sprite2D" parent="Satchel/GridContainer/Control19"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Satchel/GridContainer/Control19"]
-centered = false
-
-[node name="Control20" type="Control" parent="Satchel/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot19" parent="Satchel/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 19
 
-[node name="Sprite2D" type="Sprite2D" parent="Satchel/GridContainer/Control20"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Satchel/GridContainer/Control20"]
-centered = false
-
-[node name="Control21" type="Control" parent="Satchel/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot20" parent="Satchel/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 20
 
-[node name="Sprite2D" type="Sprite2D" parent="Satchel/GridContainer/Control21"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Satchel/GridContainer/Control21"]
-centered = false
-
-[node name="Control22" type="Control" parent="Satchel/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot21" parent="Satchel/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 21
 
-[node name="Sprite2D" type="Sprite2D" parent="Satchel/GridContainer/Control22"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Satchel/GridContainer/Control22"]
-centered = false
-
-[node name="Control23" type="Control" parent="Satchel/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot22" parent="Satchel/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 22
 
-[node name="Sprite2D" type="Sprite2D" parent="Satchel/GridContainer/Control23"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Satchel/GridContainer/Control23"]
-centered = false
-
-[node name="Control24" type="Control" parent="Satchel/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot23" parent="Satchel/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 23
-
-[node name="Sprite2D" type="Sprite2D" parent="Satchel/GridContainer/Control24"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Satchel/GridContainer/Control24"]
-centered = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Satchel"]
 position = Vector2(646, 131)
@@ -435,215 +190,64 @@ grow_horizontal = 2
 grow_vertical = 2
 columns = 3
 
-[node name="Control" type="Control" parent="Container/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot0" parent="Container/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
-metadata/slot_index = 0
 
-[node name="Sprite2D" type="Sprite2D" parent="Container/GridContainer/Control"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Container/GridContainer/Control"]
-centered = false
-
-[node name="Control2" type="Control" parent="Container/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot1" parent="Container/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 1
 
-[node name="Sprite2D" type="Sprite2D" parent="Container/GridContainer/Control2"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Container/GridContainer/Control2"]
-centered = false
-
-[node name="Control3" type="Control" parent="Container/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot2" parent="Container/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 2
 
-[node name="Sprite2D" type="Sprite2D" parent="Container/GridContainer/Control3"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Container/GridContainer/Control3"]
-centered = false
-
-[node name="Control4" type="Control" parent="Container/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot3" parent="Container/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 3
 
-[node name="Sprite2D" type="Sprite2D" parent="Container/GridContainer/Control4"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Container/GridContainer/Control4"]
-centered = false
-
-[node name="Control5" type="Control" parent="Container/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot4" parent="Container/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 4
 
-[node name="Sprite2D" type="Sprite2D" parent="Container/GridContainer/Control5"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Container/GridContainer/Control5"]
-centered = false
-
-[node name="Control6" type="Control" parent="Container/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot5" parent="Container/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 5
 
-[node name="Sprite2D" type="Sprite2D" parent="Container/GridContainer/Control6"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Container/GridContainer/Control6"]
-centered = false
-
-[node name="Control7" type="Control" parent="Container/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot6" parent="Container/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 6
 
-[node name="Sprite2D" type="Sprite2D" parent="Container/GridContainer/Control7"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Container/GridContainer/Control7"]
-centered = false
-
-[node name="Control8" type="Control" parent="Container/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot7" parent="Container/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 7
 
-[node name="Sprite2D" type="Sprite2D" parent="Container/GridContainer/Control8"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Container/GridContainer/Control8"]
-centered = false
-
-[node name="Control9" type="Control" parent="Container/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot8" parent="Container/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 8
 
-[node name="Sprite2D" type="Sprite2D" parent="Container/GridContainer/Control9"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Container/GridContainer/Control9"]
-centered = false
-
-[node name="Control10" type="Control" parent="Container/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot9" parent="Container/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 9
 
-[node name="Sprite2D" type="Sprite2D" parent="Container/GridContainer/Control10"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Container/GridContainer/Control10"]
-centered = false
-
-[node name="Control11" type="Control" parent="Container/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot10" parent="Container/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 10
 
-[node name="Sprite2D" type="Sprite2D" parent="Container/GridContainer/Control11"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Container/GridContainer/Control11"]
-centered = false
-
-[node name="Control12" type="Control" parent="Container/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot11" parent="Container/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 11
 
-[node name="Sprite2D" type="Sprite2D" parent="Container/GridContainer/Control12"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Container/GridContainer/Control12"]
-centered = false
-
-[node name="Control13" type="Control" parent="Container/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot12" parent="Container/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 12
 
-[node name="Sprite2D" type="Sprite2D" parent="Container/GridContainer/Control13"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Container/GridContainer/Control13"]
-centered = false
-
-[node name="Control14" type="Control" parent="Container/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot13" parent="Container/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 13
 
-[node name="Sprite2D" type="Sprite2D" parent="Container/GridContainer/Control14"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Container/GridContainer/Control14"]
-centered = false
-
-[node name="Control15" type="Control" parent="Container/GridContainer"]
-custom_minimum_size = Vector2(90, 90)
+[node name="Slot14" parent="Container/GridContainer" instance=ExtResource("3_ir7ef")]
 layout_mode = 2
 metadata/slot_index = 14
-
-[node name="Sprite2D" type="Sprite2D" parent="Container/GridContainer/Control15"]
-texture = ExtResource("2_trp5h")
-centered = false
-region_enabled = true
-region_rect = Rect2(540, 180, 90, 90)
-
-[node name="Item" type="Sprite2D" parent="Container/GridContainer/Control15"]
-centered = false
 
 [node name="Sprite2D" type="Sprite2D" parent="Container"]
 position = Vector2(255, 75)

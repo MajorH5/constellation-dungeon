@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://dpx8o1o7h14rf"]
+
+[node name="DialogueWindow" type="ColorRect"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -361.0
+offset_top = -216.0
+offset_right = 362.0
+offset_bottom = -51.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.351563, 0.351563, 0.351563, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.025
+anchor_top = 0.07
+anchor_right = 0.975
+anchor_bottom = 0.93
+grow_horizontal = 2
+grow_vertical = 2
+text = "Welcome to the tutorial! Click here to move items"

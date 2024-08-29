@@ -106,6 +106,8 @@ func spawn_player(pid: int, player_name: String):
 		ItemLookup.get_item(ItemLookup.WOODEN_HELMET),
 		1
 	)
+	
+	Players.register_player(pid, player)
 
 @rpc("any_peer")
 func equip_weapon(weapon_id: int):
@@ -139,6 +141,8 @@ func remove_player(pid):
 	var p = $Players.get_node(str(pid))
 	if p != null:
 		p.queue_free()
+	
+	Players.unregister_player(pid)
 
 func get_players():
 	return $Players.get_children()

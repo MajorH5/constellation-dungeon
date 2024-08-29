@@ -86,6 +86,12 @@ func set_slot(set_index: int, set_item: Item):
 	server_content = JSON.stringify(serialized)
 	
 	if contents.size() == 0:
+		pass
+		# despawn after 5 seconds if still empty
+		# get_tree().create_timer(5).timeout.connect(check_despawn)
+
+func check_despawn():
+	if contents.size() == 0:
 		queue_free()
 
 func update_contents():

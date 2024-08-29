@@ -3,10 +3,13 @@
 class_name Player
 extends Entity
 
+const experience_text_scn = preload("res://ui/ExperienceText.tscn")
+
 @export var controls_locked: bool = false
 
 @onready var camera: Camera2D = $Camera2D
 @onready var nametag: Label = $Nametag
+@onready var leveltext: Label = $LevelText
 
 var server_position: Vector2 = Vector2.ZERO
 var server_velocity: Vector2 = Vector2.ZERO
@@ -16,12 +19,46 @@ var player_name: String
 var DEV_item_index = 0
 var swap_time: float = 0
 
-#				  weapo. helm. ches. leg.  boot. acce.
+var class_type = "Andromeda"
+
+var exp = 0:
+	set(val):
+		exp = val
+		if hud != null:
+			hud.set_experience(val, ExperienceCalculator.max_for_level(level))
+var level = 0:
+	set(val):
+		level = val
+		if leveltext != null:
+			leveltext.text = "Lvl %d" % val
+		if hud != null and multiplayer.get_unique_id() == owner_id:
+			hud.update_status(class_type, level)
+
+#				                weap. helm. ches. leg.  boot. acce.
 var quick_swaps: Array[Item] = [null, null, null, null, null, null]
 var satchel = {}
 
-
+func earn_exp (amount: int):
+	var max_exp = ExperienceCalculator.max_for_level(level)
+	var current_exp = exp + amount
 	
+	if current_exp >= max_exp:
+		var excess = current_exp - max_exp
+		
+		level_up()
+		earn_exp(excess) # this is key, recurse with extra exp untill all is spent
+	else:
+		exp = current_exp
+	
+	if multiplayer.is_server():
+		var experience_text = experience_text_scn.instantiate()
+		experience_text.position = Vector2(experience_text.position.x, -20)
+		experience_text.text = "+%d EXP" % amount
+		add_child(experience_text)
+
+func level_up():
+	exp = 0
+	level += 1
 
 @rpc("any_peer")
 func intial_state():
@@ -61,7 +98,7 @@ func swap_slots(orig_type: Item.SlotType, orig_index: int, dest_type: Item.SlotT
 			set_slot_item(Item.SlotType.INVENTORY, dest_index, orig_item, -1)
 	elif orig_type == Item.SlotType.CONTAINER and dest_type == Item.SlotType.CONTAINER:
 		# container <-> container item swapping
-		
+
 		if orig_index < 0 or orig_index >= 15: return
 		if dest_index < 0 or dest_index >= 15: return
 		
@@ -176,7 +213,6 @@ func set_slot_item(slot_type: Item.SlotType, slot_index: int, item: Item, quanti
 	elif slot_type == Item.SlotType.CONTAINER:
 		var container = Chest.global.get(container_id)
 		
-		print(slot_index, item, container)
 		if container != null:
 			container.set_slot(slot_index, item)
 	
@@ -215,6 +251,7 @@ func _ready():
 	if multiplayer.get_unique_id() == owner_id:
 		camera.make_current()
 		hud.set_health(health, max_health)
+		hud.set_experience(exp, ExperienceCalculator.max_for_level(level))
 		hud.backpack.set_satchel(satchel)
 	else:
 		nametag.modulate = Color(1, 1, 1, 0.5)
@@ -292,7 +329,6 @@ func _physics_process(delta):
 	if multiplayer.is_server():
 		server_position = position
 		server_velocity = velocity
-		pass
 	else:
 		if owner_id == multiplayer.get_unique_id():
 			hud.set_health(health, max_health)

@@ -1,11 +1,10 @@
-[gd_scene load_steps=30 format=3 uid="uid://b1xityx8ekvxp"]
+[gd_scene load_steps=38 format=3 uid="uid://b1xityx8ekvxp"]
 
 [ext_resource type="Script" path="res://ui/GameHUD.gd" id="1_7ivup"]
 [ext_resource type="Texture2D" uid="uid://b286g0wqr5i4q" path="res://assets/images/ui/icons/icon_satchel_16x16_rendered.png" id="1_naos6"]
 [ext_resource type="Texture2D" uid="uid://cndwc6ortvvmo" path="res://assets/images/ui/icons/icon_skilltree_16x16_rendered.png" id="2_n3gq2"]
 [ext_resource type="Script" path="res://ui/TextureButton.gd" id="2_qb2py"]
-[ext_resource type="PackedScene" path="res://ui/skill_tree.tscn" id="3_dx4o2"]
-[ext_resource type="Script" path="res://ui/skill_tree.gd" id="4_6tx5h"]
+[ext_resource type="PackedScene" uid="uid://c6xt3a4mdirkf" path="res://ui/skill_tree.tscn" id="3_dx4o2"]
 [ext_resource type="Texture2D" uid="uid://bjgl5qnafojwh" path="res://assets/images/ui/icons/icon_crafting_16x16_rendered.png" id="4_doweq"]
 [ext_resource type="PackedScene" uid="uid://bl31bdg224lpp" path="res://ui/BackpackWindow.tscn" id="5_feeal"]
 [ext_resource type="Texture2D" uid="uid://lmt8kvn4m6to" path="res://assets/images/ui/icons/ui_icons_16x16_rendered.png" id="6_ebci7"]
@@ -19,6 +18,42 @@
 [ext_resource type="Texture2D" uid="uid://1ldu241nr0ii" path="res://assets/images/entities/characters/character_andromeda_16x16_rendered.png" id="16_byi1h"]
 [ext_resource type="FontFile" uid="uid://icuaaawj37dg" path="res://assets/fonts/silkscreen_regular.ttf" id="18_3s88p"]
 [ext_resource type="Script" path="res://ui/TextEdit.gd" id="19_v3vft"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xa5g0"]
+atlas = ExtResource("6_ebci7")
+region = Rect2(810, 0, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g6gp1"]
+atlas = ExtResource("6_ebci7")
+region = Rect2(810, 90, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60if8"]
+atlas = ExtResource("6_ebci7")
+region = Rect2(810, 180, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rhdg0"]
+atlas = ExtResource("6_ebci7")
+region = Rect2(90, 360, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lxbsc"]
+atlas = ExtResource("6_ebci7")
+region = Rect2(180, 360, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ko8c"]
+atlas = ExtResource("6_ebci7")
+region = Rect2(0, 360, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4w1x3"]
+atlas = ExtResource("6_ebci7")
+region = Rect2(360, 360, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ie5ru"]
+atlas = ExtResource("6_ebci7")
+region = Rect2(450, 360, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_co8jj"]
+atlas = ExtResource("6_ebci7")
+region = Rect2(270, 360, 90, 90)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7tehm"]
 atlas = ExtResource("6_ebci7")
@@ -100,14 +135,15 @@ offset_bottom = 212.0
 text = " "
 
 [node name="BackpackWindow" parent="." instance=ExtResource("5_feeal")]
+z_index = 5
 layout_mode = 1
 
 [node name="SkillTreeWindow" parent="." instance=ExtResource("3_dx4o2")]
 visible = false
+layout_mode = 1
 offset_top = 1.0
 offset_right = 1278.0
 offset_bottom = 714.0
-script = ExtResource("4_6tx5h")
 
 [node name="MenuOptions" type="Control" parent="."]
 z_index = 2
@@ -117,10 +153,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 388.0
-offset_top = -115.0
-offset_right = 658.0
-offset_bottom = -25.0
+offset_left = 403.0
+offset_top = -90.0
+offset_right = 673.0
 grow_horizontal = 2
 grow_vertical = 0
 scale = Vector2(0.8, 0.8)
@@ -249,6 +284,322 @@ offset_bottom = -108.12
 grow_horizontal = 2
 grow_vertical = 0
 
+[node name="Skills" type="Control" parent="."]
+z_index = 2
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 403.0
+offset_top = -166.0
+offset_right = 673.0
+offset_bottom = -76.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.8, 0.8)
+
+[node name="Hotkeys" type="Control" parent="Skills"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Q" type="TextureRect" parent="Skills/Hotkeys"]
+z_index = 2
+layout_mode = 0
+offset_left = 43.75
+offset_top = -17.5
+offset_right = 133.75
+offset_bottom = 72.5
+scale = Vector2(0.447, 0.447)
+texture = SubResource("AtlasTexture_xa5g0")
+
+[node name="E" type="TextureRect" parent="Skills/Hotkeys"]
+z_index = 2
+layout_mode = 0
+offset_left = 150.0
+offset_top = -17.5
+offset_right = 240.0
+offset_bottom = 72.5
+scale = Vector2(0.447, 0.447)
+texture = SubResource("AtlasTexture_g6gp1")
+
+[node name="R" type="TextureRect" parent="Skills/Hotkeys"]
+z_index = 2
+layout_mode = 0
+offset_left = 253.75
+offset_top = -17.5
+offset_right = 343.75
+offset_bottom = 72.5
+scale = Vector2(0.447, 0.447)
+texture = SubResource("AtlasTexture_60if8")
+
+[node name="AndromedaSkills" type="Control" parent="Skills"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Taunt" type="Button" parent="Skills/AndromedaSkills"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 70.0
+offset_top = -40.0
+offset_right = 160.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("2_qb2py")
+
+[node name="TextureRect" type="TextureRect" parent="Skills/AndromedaSkills/Taunt"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -45.0
+offset_top = -45.0
+offset_right = 45.0
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_rhdg0")
+
+[node name="Sprite2D" type="Sprite2D" parent="Skills/AndromedaSkills/Taunt"]
+texture = ExtResource("6_ebci7")
+centered = false
+region_enabled = true
+region_rect = Rect2(540, 180, 90, 90)
+
+[node name="Summon" type="Button" parent="Skills/AndromedaSkills"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.57
+anchor_top = 1.0
+anchor_right = 0.57
+anchor_bottom = 1.0
+offset_left = 172.9
+offset_top = -40.0
+offset_right = 262.9
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 0
+action_mode = 0
+script = ExtResource("2_qb2py")
+
+[node name="TextureRect" type="TextureRect" parent="Skills/AndromedaSkills/Summon"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -45.0
+offset_top = -45.0
+offset_right = 45.0
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_lxbsc")
+
+[node name="Sprite2D" type="Sprite2D" parent="Skills/AndromedaSkills/Summon"]
+texture = ExtResource("6_ebci7")
+centered = false
+region_enabled = true
+region_rect = Rect2(540, 180, 90, 90)
+
+[node name="Heal" type="Button" parent="Skills/AndromedaSkills"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.43
+anchor_top = 1.0
+anchor_right = 0.43
+anchor_bottom = 1.0
+offset_left = -32.9001
+offset_top = -40.0
+offset_right = 57.0999
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 0
+action_mode = 0
+script = ExtResource("2_qb2py")
+
+[node name="TextureRect" type="TextureRect" parent="Skills/AndromedaSkills/Heal"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -45.0
+offset_top = -45.0
+offset_right = 45.0
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_5ko8c")
+
+[node name="Sprite2D" type="Sprite2D" parent="Skills/AndromedaSkills/Heal"]
+texture = ExtResource("6_ebci7")
+centered = false
+region_enabled = true
+region_rect = Rect2(540, 180, 90, 90)
+
+[node name="SkillAction" type="Label" parent="Skills/AndromedaSkills"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.841
+anchor_right = 0.5
+anchor_bottom = 0.841
+offset_left = 95.0
+offset_top = -89.07
+offset_right = 135.0
+offset_bottom = -66.07
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HerculesSkills" type="Control" parent="Skills"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Dash" type="Button" parent="Skills/HerculesSkills"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 70.0
+offset_top = -40.0
+offset_right = 160.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("2_qb2py")
+
+[node name="TextureRect" type="TextureRect" parent="Skills/HerculesSkills/Dash"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -45.0
+offset_top = -45.0
+offset_right = 45.0
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_4w1x3")
+
+[node name="Sprite2D" type="Sprite2D" parent="Skills/HerculesSkills/Dash"]
+texture = ExtResource("6_ebci7")
+centered = false
+region_enabled = true
+region_rect = Rect2(540, 180, 90, 90)
+
+[node name="Enrage" type="Button" parent="Skills/HerculesSkills"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.57
+anchor_top = 1.0
+anchor_right = 0.57
+anchor_bottom = 1.0
+offset_left = 172.9
+offset_top = -40.0
+offset_right = 262.9
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 0
+action_mode = 0
+script = ExtResource("2_qb2py")
+
+[node name="TextureRect" type="TextureRect" parent="Skills/HerculesSkills/Enrage"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -45.0
+offset_top = -45.0
+offset_right = 45.0
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_ie5ru")
+
+[node name="Sprite2D" type="Sprite2D" parent="Skills/HerculesSkills/Enrage"]
+texture = ExtResource("6_ebci7")
+centered = false
+region_enabled = true
+region_rect = Rect2(540, 180, 90, 90)
+
+[node name="Steroid" type="Button" parent="Skills/HerculesSkills"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.43
+anchor_top = 1.0
+anchor_right = 0.43
+anchor_bottom = 1.0
+offset_left = -32.9001
+offset_top = -40.0
+offset_right = 57.0999
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 0
+action_mode = 0
+script = ExtResource("2_qb2py")
+
+[node name="TextureRect" type="TextureRect" parent="Skills/HerculesSkills/Steroid"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -45.0
+offset_top = -45.0
+offset_right = 45.0
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_co8jj")
+
+[node name="Sprite2D" type="Sprite2D" parent="Skills/HerculesSkills/Steroid"]
+texture = ExtResource("6_ebci7")
+centered = false
+region_enabled = true
+region_rect = Rect2(540, 180, 90, 90)
+
+[node name="SkillAction" type="Label" parent="Skills/HerculesSkills"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.841
+anchor_right = 0.5
+anchor_bottom = 0.841
+offset_left = 95.0
+offset_top = -89.07
+offset_right = 135.0
+offset_bottom = -66.07
+grow_horizontal = 2
+grow_vertical = 0
+
 [node name="QuickSwaps" type="Control" parent="."]
 z_index = 2
 layout_mode = 1
@@ -257,10 +608,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -120.0
-offset_top = -115.0
-offset_right = 420.0
-offset_bottom = -25.0
+offset_left = -105.0
+offset_top = -90.0
+offset_right = 435.0
 grow_horizontal = 2
 grow_vertical = 0
 scale = Vector2(0.8, 0.8)
@@ -651,7 +1001,7 @@ scale = Vector2(0.385, 0.385)
 theme = SubResource("Theme_kancu")
 theme_override_fonts/font = ExtResource("7_33l7m")
 theme_override_font_sizes/font_size = 30
-text = "XP: 30 / 200"
+text = "XP: 10 / 100"
 
 [node name="PlayerName" type="Label" parent="Status"]
 layout_mode = 0
@@ -671,7 +1021,7 @@ offset_bottom = 45.0
 scale = Vector2(0.703, 0.703)
 theme = SubResource("Theme_7cnay")
 bbcode_enabled = true
-text = "Adromeda • [color=gold]Lvl 3[/color]"
+text = "Andromeda • [color=gold]Lvl 0 [/color]"
 autowrap_mode = 0
 
 [node name="Control" type="Control" parent="."]
@@ -697,6 +1047,11 @@ placeholder_text = "Click here to chat! "
 scroll_past_end_of_file = true
 script = ExtResource("19_v3vft")
 
+[node name="Skill Tree" parent="." instance=ExtResource("3_dx4o2")]
+visible = false
+z_index = 5
+layout_mode = 1
+
 [connection signal="button_down" from="MenuOptions/Satchel" to="." method="_on_satchel_button_down"]
 [connection signal="mouse_entered" from="MenuOptions/Satchel" to="MenuOptions/Satchel" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="MenuOptions/Satchel" to="MenuOptions/Satchel" method="_on_mouse_exited"]
@@ -704,3 +1059,17 @@ script = ExtResource("19_v3vft")
 [connection signal="mouse_exited" from="MenuOptions/Skill Tree" to="MenuOptions/Skill Tree" method="_on_mouse_exited"]
 [connection signal="mouse_entered" from="MenuOptions/Crafting" to="MenuOptions/Crafting" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="MenuOptions/Crafting" to="MenuOptions/Crafting" method="_on_mouse_exited"]
+[connection signal="button_down" from="Skills/AndromedaSkills/Taunt" to="." method="_on_satchel_button_down"]
+[connection signal="mouse_entered" from="Skills/AndromedaSkills/Taunt" to="Skills/AndromedaSkills/Taunt" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Skills/AndromedaSkills/Taunt" to="Skills/AndromedaSkills/Taunt" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Skills/AndromedaSkills/Summon" to="Skills/AndromedaSkills/Summon" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Skills/AndromedaSkills/Summon" to="Skills/AndromedaSkills/Summon" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Skills/AndromedaSkills/Heal" to="Skills/AndromedaSkills/Heal" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Skills/AndromedaSkills/Heal" to="Skills/AndromedaSkills/Heal" method="_on_mouse_exited"]
+[connection signal="button_down" from="Skills/HerculesSkills/Dash" to="." method="_on_satchel_button_down"]
+[connection signal="mouse_entered" from="Skills/HerculesSkills/Dash" to="Skills/HerculesSkills/Dash" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Skills/HerculesSkills/Dash" to="Skills/HerculesSkills/Dash" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Skills/HerculesSkills/Enrage" to="Skills/HerculesSkills/Enrage" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Skills/HerculesSkills/Enrage" to="Skills/HerculesSkills/Enrage" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Skills/HerculesSkills/Steroid" to="Skills/HerculesSkills/Steroid" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Skills/HerculesSkills/Steroid" to="Skills/HerculesSkills/Steroid" method="_on_mouse_exited"]
