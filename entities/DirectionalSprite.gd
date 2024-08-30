@@ -14,6 +14,7 @@ const ACTION_WALK = "walk"
 const ACTION_ATTACK = "attack"
 const ACTION_IDLE = "idle"
 
+var manually_animated: bool = false
 var current_facing: String = SOUTH
 
 func facing_from_direction(direction: Vector2) -> String:
@@ -88,7 +89,7 @@ func _physics_process(delta):
 	# this node expects to be a child of an entity
 	var entity = get_parent()
 	
-	if entity == null or not (entity is Entity):
+	if entity == null or not (entity is Entity) or manually_animated:
 		return
 	
 	if entity.is_dead():

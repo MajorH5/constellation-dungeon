@@ -31,8 +31,13 @@ const chest_scn = preload("res://objects/Chest.tscn")
 @export var base_damage: int = 0
 @export var despawn_on_death: bool = true
 @export var drop_data: Array[ItemDropData] = []
-@export var skill_point_drop_min = 1
-@export var skill_point_drop_max = 1
+@export var skill_point_drop_min: int = 1
+@export var skill_point_drop_max: int = 1
+@export var invulnerable: bool = false
+
+@export_group("Sound Effects")
+@export var on_hit: AudioStreamPlayer = null
+@export var on_death: AudioStreamPlayer = null
 
 var entity_id: int = -1
 var owner_id: int # unique multiplayer client id or blank if server owned
@@ -89,7 +94,7 @@ func get_projectile_damage() -> int:
 func damage(amount: int, source: Variant) -> bool:
 	# damages the entity by the given amount
 	# and returns ture if successfull
-	if is_dead() or amount != amount:
+	if is_dead() or amount != amount or invulnerable:
 		return false
 	
 	health = max(0, health - amount)

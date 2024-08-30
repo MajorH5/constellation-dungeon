@@ -28,6 +28,9 @@ func perform (delta: float):
 	# current ai state
 	pass
 
+func get_direction (target_position: Vector2) -> Vector2:
+	return (target_position - agent.position).normalized()
+
 func is_logic_allowed():
 	return multiplayer.is_server() and agent != null and not agent.is_dead()
 
@@ -37,5 +40,5 @@ func attack_closest_player():
 func move_to_position(position: Vector2):
 	pass
 
-func get_closest_player() -> Player:
-	return null
+func get_nearby_players(radius: int) -> Array[Player]:
+	return Players.get_nearby(agent.position, radius)

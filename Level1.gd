@@ -25,6 +25,7 @@ func spawn_player(pid: int, player_name: String):
 	player.position = dungeon.get_player_spawn_point()
 	player.server_position = player.position
 	player.name = str(pid)
+	#player.lock_controls(true)
 	$Players.add_child(player, true)
 
 	player.set_slot_item(
@@ -136,6 +137,9 @@ func respawn_player():
 	player.health = player.max_health
 	player.controls_locked = false
 	
+@rpc("any_peer")
+func on_class_chosen(char_class: Character.Class):
+	pass
 
 func remove_player(pid):
 	var p = $Players.get_node(str(pid))

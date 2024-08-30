@@ -1,43 +1,140 @@
 # Author: Habib A. 7-28-2024
 # Handles ai behavior for bad omen entity
 
-extends AIBase
+extends WanderAI
 
-var time_walking_in_direction: float = 0
-var current_walk_time_limit: float = 0
-var time_since_last_collision: float = 0
+const CHANCE_TO_SWITCH = 0.095 # 9.5% chance to choose new target
+const TELEPORT_CHANCE = 0.47
+const MIN_ATTACK_TIME = 1.7
+const MAX_ATTACK_TIME = 4.6
 
-var max_time_walking_range: Vector2 = Vector2(0.5, 2.3)
+@export var attack_radius = 200
+var is_teleporting = false
+var teleport_timer = 0
+var attack_time = 0
+var target_teleport_pos = null
+var time_spent_attacking = 0
+var currently_chasing: Player = null
+var post_teleport_time = 0
+var wander_time = 0
+
+@rpc("authority")
+func client_handle_teleport():
+	agent.sprite.manually_animated = true
+	agent.sprite.play("death")
+	
+	var fade_out = create_tween()
+	fade_out.tween_property(agent.sprite, "modulate", Color(1, 1, 1, 0), 1)
+	
+	get_tree().create_timer(3).timeout.connect(func ():
+		agent.sprite.manually_animated = false
+		agent.sprite.play("idle_south")
+		
+		var fade_in = create_tween()
+		fade_in.tween_property(agent.sprite, "modulate", Color(1, 1, 1, 1), 1)
+	)
+
+func _ready ():
+	super._ready()
+	
+	if randf() < 0.25:
+		# wander on spawn
+		wander_time = randi_range(1 * 100, 3 * 100) / 100
+	elif randf() < 0.5:
+		# attack on spawn
+		pass
+	else:
+		# teleport on spawn
+		get_new_target()
+		is_teleporting = true
 
 func perform(delta: float):
-	if not multiplayer.is_server():
+	if not multiplayer.is_server() or agent.is_dead():
 		return
 	
 	super.perform(delta)
 	
-	if time_walking_in_direction >= current_walk_time_limit:
-		var min_time = max_time_walking_range.x
-		var max_time = max_time_walking_range.y
+	if is_teleporting:
+		handle_teleport(delta)
+		return
+	
+	var nearby = get_nearby_players(attack_radius)
+	if currently_chasing == null or not (currently_chasing in nearby):
+		var target_found = get_new_target()
 		
-		var walk_direction = Vector2(
-			randf() * (-1 if randf() < 0.5 else 1),
-			randf() * (-1 if randf() < 0.5 else 1)
-		)
+		if not target_found:
+			currently_chasing = null # incase out of range
+			return
+		
+	if currently_chasing == null:
+		return
+	
+	if wander_time > 0:
+		wander_time -= delta
+		wander(delta)
+	elif time_spent_attacking < attack_time:
+		# let's attack em'!
+		var to_target = get_direction(currently_chasing.position)
 
-		agent.walk_to(walk_direction)
-		
-		if randf() < 0.5:
-			agent.attack_to(walk_direction)
-		else:
-			agent.attack_to(Vector2.ZERO)
-		
-		time_walking_in_direction = 0
-		current_walk_time_limit = min_time + (max_time - min_time) * randf()
+		time_spent_attacking += delta
+		agent.attack_to(to_target)
+		agent.walk_to(Vector2.ZERO)
 	else:
-		time_walking_in_direction += delta
+		agent.attack_to(Vector2.ZERO)
+		
+		if randf() < TELEPORT_CHANCE:
+			# teleport
+			is_teleporting = true
+		elif randf() < 0.33:
+			# start attacking
+			time_spent_attacking = 0
+		else:
+			# just wander
+			wander_time = randi_range(1 * 100, 3 * 100) / 100
+		
+func handle_teleport(delta: float):
+	if target_teleport_pos == null:
+		if currently_chasing == null:
+			# lost em during the intial teleport
+			is_teleporting = false
+			return
+		
+		var neg_or_pos = Vector2(
+			-1 if randf() < 0.5 else 1,
+			-1 if randf() < 0.5 else 1
+		)
+		var offset = Vector2(randf(), randf()) * neg_or_pos * 10
+		target_teleport_pos = currently_chasing.position + offset
+		client_handle_teleport.rpc()
+		agent.walk_to(Vector2.ZERO)
+		agent.invulnerable = true
+	elif teleport_timer < 3:
+		teleport_timer += delta
+	else:
+		agent.position = target_teleport_pos
+		teleport_timer = 0
+		target_teleport_pos = null
+		is_teleporting = false
+		time_spent_attacking = 0
+		wander_time = randi_range(1 * 100, 3 * 100) / 100
+		agent.invulnerable = false
+
+func determine_attack_time ():
+	attack_time = randi_range(MIN_ATTACK_TIME * 100, MAX_ATTACK_TIME * 100) / 100
+
+func get_new_target() -> bool:
+	var nearby = get_nearby_players(attack_radius)
 	
-	if agent.get_slide_collision_count() > 0 and time_since_last_collision > 1:
-		agent.velocity *= -1
-		time_since_last_collision = 0
+	if len(nearby) == 0:
+		return false
 	
-	time_since_last_collision += delta
+	var agent_pos = agent.position
+	
+	nearby.sort_custom(func (a, z):
+		return a.position.distance_to(agent_pos) < z.position.distance_to(agent_pos)
+	)
+	
+	currently_chasing = nearby[0]
+	determine_attack_time()
+	
+	return true

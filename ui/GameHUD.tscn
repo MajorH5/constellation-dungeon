@@ -336,7 +336,6 @@ scale = Vector2(0.447, 0.447)
 texture = SubResource("AtlasTexture_60if8")
 
 [node name="AndromedaSkills" type="Control" parent="Skills"]
-visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -451,6 +450,7 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="HerculesSkills" type="Control" parent="Skills"]
+visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0

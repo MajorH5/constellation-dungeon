@@ -18,6 +18,7 @@ var hud: Control = null
 var player_name: String
 var DEV_item_index = 0
 var swap_time: float = 0
+var step_timer: float = 0
 
 var class_type = "Andromeda"
 
@@ -325,6 +326,14 @@ func _physics_process(delta):
 	swap_time += delta
 	
 	player_input()
+	
+	if velocity != Vector2.ZERO and multiplayer.get_unique_id() == owner_id:
+		step_timer += delta
+		
+		if step_timer >= 1 / velocity.length() * 15:
+			$StepSfx.play()
+			step_timer = 0
+		
 	
 	if multiplayer.is_server():
 		server_position = position

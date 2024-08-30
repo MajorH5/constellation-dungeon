@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://bdy8chu6dv2ug"]
+[gd_scene load_steps=39 format=3 uid="uid://bdy8chu6dv2ug"]
 
 [ext_resource type="Script" path="res://entities/friendlies/Player.gd" id="1_xni1k"]
 [ext_resource type="Texture2D" uid="uid://1ldu241nr0ii" path="res://assets/images/entities/characters/character_andromeda_16x16_rendered.png" id="2_c4v5n"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bcucash6fcx6h" path="res://utilities/AutoAnimator.tscn" id="4_8xlsd"]
 [ext_resource type="Script" path="res://addons/jam_launch/core/JamSync.gd" id="5_pxniy"]
 [ext_resource type="PackedScene" uid="uid://bf74ue7fcejd7" path="res://entities/EntityHealthBar.tscn" id="6_8e5mu"]
+[ext_resource type="AudioStream" uid="uid://c2c3hlhiy08di" path="res://assets/sounds/snd_step.wav" id="7_362lj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2oj4y"]
 size = Vector2(8, 8)
@@ -372,3 +373,7 @@ layout_mode = 2
 theme = SubResource("Theme_cya3f")
 text = "Some text to test asdsadsdasddsadas"
 horizontal_alignment = 1
+
+[node name="StepSfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_362lj")
+volume_db = -8.937

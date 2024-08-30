@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://b2d7el1u3oysj"]
+[gd_scene load_steps=15 format=3 uid="uid://b2d7el1u3oysj"]
 
 [ext_resource type="Texture2D" uid="uid://1ldu241nr0ii" path="res://assets/images/entities/characters/character_andromeda_16x16_rendered.png" id="1_hyxdh"]
+[ext_resource type="Script" path="res://ui/ClassChooser.gd" id="1_ia1u4"]
 [ext_resource type="Texture2D" uid="uid://8mxvv0pjbjoo" path="res://assets/images/backgrounds/space_background_420x360.png" id="2_wlema"]
 [ext_resource type="Texture2D" uid="uid://y02ersmm37y2" path="res://assets/images/entities/characters/character_hercules_16x16_rendered.png" id="3_vfdl6"]
+[ext_resource type="Texture2D" uid="uid://lmt8kvn4m6to" path="res://assets/images/ui/icons/ui_icons_16x16_rendered.png" id="4_4ywfc"]
 
 [sub_resource type="Theme" id="Theme_q50n6"]
 default_font_size = 100
@@ -29,13 +31,29 @@ _data = {
 "loop": SubResource("Animation_587jx")
 }
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_jnfwd"]
-atlas = ExtResource("1_hyxdh")
-region = Rect2(0, -15, 90, 90)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_u4tti"]
 atlas = ExtResource("3_vfdl6")
-region = Rect2(0, -15, 90, 90)
+region = Rect2(0, 180, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w16rh"]
+atlas = ExtResource("3_vfdl6")
+region = Rect2(0, 360, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ptbg"]
+atlas = ExtResource("4_4ywfc")
+region = Rect2(540, 180, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rppcf"]
+atlas = ExtResource("1_hyxdh")
+region = Rect2(0, 180, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rr0gl"]
+atlas = ExtResource("1_hyxdh")
+region = Rect2(0, 360, 90, 90)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_me1vr"]
+atlas = ExtResource("4_4ywfc")
+region = Rect2(540, 180, 90, 90)
 
 [node name="ClassChooser" type="Control"]
 layout_mode = 3
@@ -44,6 +62,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_ia1u4")
 
 [node name="Label" type="Label" parent="."]
 z_index = 2
@@ -62,6 +81,7 @@ horizontal_alignment = 1
 
 [node name="SpaceBackground" type="GridContainer" parent="."]
 z_index = -1
+layout_mode = 0
 offset_right = 1692.0
 offset_bottom = 1452.0
 columns = 4
@@ -151,18 +171,6 @@ libraries = {
 autoplay = "loop"
 speed_scale = 0.09
 
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -264.0
-offset_bottom = -215.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(3.46541e-06, 0.697092, 0.697965, 1)
-
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 0
 offset_left = 331.0
@@ -171,37 +179,19 @@ offset_right = 935.0
 offset_bottom = 503.0
 alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+[node name="HerculesClass" type="MarginContainer" parent="HBoxContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 0
-theme_override_constants/margin_right = 100
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
 
-[node name="TextureButton2" type="TextureButton" parent="HBoxContainer/MarginContainer"]
-custom_minimum_size = Vector2(200, 200)
-layout_mode = 2
-texture_normal = SubResource("AtlasTexture_jnfwd")
-stretch_mode = 0
-
-[node name="ColorRect" type="ColorRect" parent="HBoxContainer/MarginContainer/TextureButton2"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 100
-
-[node name="TextureButton2" type="TextureButton" parent="HBoxContainer/MarginContainer2"]
+[node name="Select" type="TextureButton" parent="HBoxContainer/HerculesClass"]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 texture_normal = SubResource("AtlasTexture_u4tti")
+texture_hover = SubResource("AtlasTexture_w16rh")
 stretch_mode = 0
 
-[node name="ColorRect" type="ColorRect" parent="HBoxContainer/MarginContainer2/TextureButton2"]
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/HerculesClass/Select"]
 show_behind_parent = true
 layout_mode = 1
 anchors_preset = 15
@@ -209,4 +199,43 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.501961)
+texture = SubResource("AtlasTexture_3ptbg")
+
+[node name="AndromedaClass" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
+
+[node name="Select" type="TextureButton" parent="HBoxContainer/AndromedaClass"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_rppcf")
+texture_hover = SubResource("AtlasTexture_rr0gl")
+stretch_mode = 0
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/AndromedaClass/Select"]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_3ptbg")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -299.0
+offset_bottom = -179.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_me1vr")
+region_rect = Rect2(0, 0, 90, 90)
+patch_margin_left = 60
+patch_margin_top = 60
+patch_margin_right = 60
+patch_margin_bottom = 60
