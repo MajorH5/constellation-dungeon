@@ -37,18 +37,23 @@ func _on_body_entered(body):
 	var from_entity = Entity.entity_registry.get(sender)
 
 	if not body.is_dead():
+		var on_hit = body.get_node("OnHit")
+		var pitch = 1 + randf() * 0.25 * (-1 if randf() < 0.5 else 1)
+					
 		if friendly_hitting_hostile and from_entity.owner_id == multiplayer.get_unique_id():
 			body.register_projectile_hit.rpc_id(1, from_entity.entity_id)
 			queue_free()
 			
-			if body.get_node("OnHit") != null:
-				body.get_node("OnHit").play()
+			if on_hit != null and not body.invulnerable:
+				on_hit.pitch_scale = pitch
+				on_hit.play()
 		elif hostile_hitting_friendly and body.owner_id == multiplayer.get_unique_id():
 			body.register_self_hit.rpc_id(1, from_entity.entity_id)
 			queue_free()
 			
-			if body.get_node("OnHit") != null:
-				body.get_node("OnHit").play()
+			if on_hit != null and not body.invulnerable:
+				on_hit.pitch_scale = pitch
+				on_hit.play()
 		
 
 func _ready ():

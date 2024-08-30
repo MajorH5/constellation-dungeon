@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://bf74ue7fcejd7" path="res://entities/EntityHealthBar.tscn" id="8_0rpvl"]
 [ext_resource type="PackedScene" uid="uid://bspeo6d34wfus" path="res://items/accessories/Cheese.tscn" id="8_kyfn0"]
 [ext_resource type="Script" path="res://addons/jam_launch/core/JamSync.gd" id="10_3rk7o"]
-[ext_resource type="Script" path="res://entities/ai/WanderAI.gd" id="13_v47di"]
+[ext_resource type="Script" path="res://entities/ai/AsteroidConstructAI.gd" id="13_83t45"]
 [ext_resource type="AudioStream" uid="uid://jk0g7fatw7pr" path="res://assets/sounds/asteroid_construct_hit.wav" id="15_n5s2c"]
 [ext_resource type="AudioStream" uid="uid://dw87wfsjt8j6s" path="res://assets/sounds/asteroid_construct_death.wav" id="16_feiwo"]
 
@@ -34,14 +34,14 @@ animations = [{
 
 [sub_resource type="Resource" id="Resource_xylgd"]
 script = ExtResource("2_dnj5e")
-speed = 10.0
+speed = 6.8
 texture = SubResource("SpriteFrames_e3bps")
 lifetime = 1.0
 hitbox_size = Vector2(8, 8)
 hitbox_offset = Vector2(0, 0)
 spawn_distance = 5.0
-amount = 5
-spread = 20.0
+amount = 2
+spread = 25.0
 
 [sub_resource type="Resource" id="Resource_2q0k4"]
 script = ExtResource("4_483fi")
@@ -378,14 +378,12 @@ offset_left = -5.0
 offset_right = 95.0
 
 [node name="AI" type="Node" parent="."]
-script = ExtResource("13_v47di")
-should_randomly_attack = true
-wander_default = true
+script = ExtResource("13_83t45")
 
 [node name="JamSync" type="Node" parent="."]
 script = ExtResource("10_3rk7o")
 spawn_properties = Array[String](["position", "entity_id"])
-sync_properties = Array[String](["position", "velocity", "is_attacking", "health", "attack_direction", "entity_id"])
+sync_properties = Array[String](["position", "velocity", "is_attacking", "health", "attack_direction", "entity_id", "invulnerable"])
 
 [node name="OnHit" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("15_n5s2c")

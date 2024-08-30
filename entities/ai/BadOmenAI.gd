@@ -67,6 +67,7 @@ func perform(delta: float):
 			return
 		
 	if currently_chasing == null:
+		# no one to attack... just sit there and do nothing
 		return
 	
 	if wander_time > 0:

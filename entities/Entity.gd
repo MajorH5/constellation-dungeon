@@ -38,6 +38,7 @@ const chest_scn = preload("res://objects/Chest.tscn")
 @export_group("Sound Effects")
 @export var on_hit: AudioStreamPlayer = null
 @export var on_death: AudioStreamPlayer = null
+var death_sound_played = false
 
 var entity_id: int = -1
 var owner_id: int # unique multiplayer client id or blank if server owned
@@ -236,6 +237,13 @@ func _process (delta):
 		if is_attacking and last_fire_time >= 1 / fire_rate:
 			spawn_projectile()
 			last_fire_time = 0
+		
+		var death_sfx = get_node("OnDeath")
+		if health <= 0 and not death_sound_played and death_sfx != null:
+			var pitch = 1 + randf() * 0.25 * (-1 if randf() < 0.5 else 1)
+			death_sfx.pitch_scale = pitch
+			death_sfx.play()
+			death_sound_played = true
 	
 	health_bar.set_health_percent((health * 1.0) / max_health)
 	

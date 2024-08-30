@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://bdy8chu6dv2ug"]
+[gd_scene load_steps=41 format=3 uid="uid://bdy8chu6dv2ug"]
 
 [ext_resource type="Script" path="res://entities/friendlies/Player.gd" id="1_xni1k"]
 [ext_resource type="Texture2D" uid="uid://1ldu241nr0ii" path="res://assets/images/entities/characters/character_andromeda_16x16_rendered.png" id="2_c4v5n"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://addons/jam_launch/core/JamSync.gd" id="5_pxniy"]
 [ext_resource type="PackedScene" uid="uid://bf74ue7fcejd7" path="res://entities/EntityHealthBar.tscn" id="6_8e5mu"]
 [ext_resource type="AudioStream" uid="uid://c2c3hlhiy08di" path="res://assets/sounds/snd_step.wav" id="7_362lj"]
+[ext_resource type="AudioStream" uid="uid://fyddgmuipyp6" path="res://assets/sounds/player_hit.wav" id="8_007px"]
+[ext_resource type="AudioStream" uid="uid://rbscg5q2trlk" path="res://assets/sounds/player_death.wav" id="9_cpv2u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2oj4y"]
 size = Vector2(8, 8)
@@ -376,4 +378,11 @@ horizontal_alignment = 1
 
 [node name="StepSfx" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_362lj")
-volume_db = -8.937
+volume_db = -15.843
+
+[node name="OnHit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_007px")
+
+[node name="OnDeath" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_cpv2u")
+volume_db = -12.593
